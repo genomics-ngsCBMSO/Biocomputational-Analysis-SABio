@@ -1,6 +1,5 @@
 <html lang="en">
 <h1>Applications overview</h1>
-Aplicaciones_tarifas.html
 <details open>
   <summary>Transcriptomic applications</summary>
   <table>
