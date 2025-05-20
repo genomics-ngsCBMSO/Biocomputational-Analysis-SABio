@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Functional Enrichment Analysis (GSEA / ORA)</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-top: 40px;
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    summary:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Functional Enrichment Analysis (GSEA / ORA)</h1>
+
+  <div class="content">
+    <details open>
+      <summary><h2>GSEA: Gene Set Enrichment Analysis</h2></summary>
+      <p>GSEA determines whether a predefined gene set shows statistically significant differences between two phenotypes. Using gene sets from GO and KEGG databases, this study applied GSEA to find enriched pathways using clusterProfiler and enrichplot packages in R. The Enrichment Score (ES) and Normalized Enrichment Score (NES) are key outputs.</p>
+
+      <h3>a) Dotplot</h3>
+      <p>Shows gene ratio, NES sign, and p-value. NES &gt; 0 indicates activation, &lt; 0 suppression.</p>
+      <div class="images">
+        <img src="GSEA/GO_Mutant_WT_dotplot.png" alt="Dotplot GSEA" style="width: 60%;">
+      </div>
+
+      <h3>b) Gene-concept network</h3>
+      <p>Connects genes and terms in a network; node size = set size, color = log2FC.</p>
+      <div class="images">
+        <img src="GSEA/GO_Mutant_WT_gene_concept_net_4.png" alt="Gene-concept GSEA" style="width: 45%;">
+        <img src="GSEA/Mutant_vs_WT_gene_concept_net.jpeg" alt="Gene-concept GSEA" style="width: 45%;">
+      </div>
+
+      <h3>c) Enrichment map</h3>
+      <p>Clusters overlapping terms; node size = number of genes, color = enrichment score.</p>
+      <div class="images">
+        <img src="GSEA/GO_Mutant_vs_WT_enrich_map.png" alt="Enrichment Map GSEA" style="width: 60%;">
+      </div>
+
+      <h3>d) Ridgeplot</h3>
+      <p>Density plots of fold changes per gene set; helpful to interpret regulation direction.</p>
+      <div class="images">
+        <img src="GSEA/GO_Mutant_vs_WT_ridge.png" alt="Ridgeplot GSEA" style="width: 60%;">
+      </div>
+
+      <h3>e) UpSet plot</h3>
+      <p>Shows overlaps between gene sets; emphasizes shared and unique genes.</p>
+      <div class="images">
+        <img src="GSEA/Mutant_vs_WT_upset_20first.jpeg" alt="UpSet Plot GSEA" style="width: 60%;">
+      </div>
+
+      <h3>f) GSEA Plot (Enrichment Curve)</h3>
+      <p>This classic GSEA plot displays the running enrichment score (ES) for a gene set as the algorithm walks down the ranked gene list. Peaks represent the point of maximum enrichment, and vertical lines indicate the position of the genes in the gene set.</p>
+      <div class="images">
+	    <img src="GSEA/organellar_ribosome_Mutant_WT.png" alt="GSEA Curve Plot" style="width: 45%;">
+        <img src="GSEA/chromosome_segregation_Mutant_WT.png" alt="GSEA Curve Plot" style="width: 45%;">
+		
+		
+      </div>
+    </details>
+  </div>
+
+  <div class="content">
+    <details>
+      <summary><h2>ORA: Over-representation Analysis</h2></summary>
+      <p>ORA checks if specific GO terms are overrepresented in a given gene list. We used genes with adjusted p-value &lt; 0.05 (no FC cutoff) and visualized results with enrichplot.</p>
+
+      <h3>Dotplot</h3>
+      <p>Top enriched GO terms, ranked by gene ratio, sized by count, colored by p-adjust.</p>
+      <div class="images">
+        <img src="ORA/enrichGO_dotplot.png" alt="Dotplot ORA" style="width: 60%;">
+      </div>
+
+      <h3>Barplot</h3>
+      <p>Bars show gene counts or ratios and significance for each GO term.</p>
+      <div class="images">
+        <img src="ORA/enrichGO_barplot_geneRatio.png" alt="Barplot ORA" style="width: 60%;">
+      </div>
+
+      <h3>Enrichment Map</h3>
+      <p>Same as in GSEA, but for ORA GO terms, with clusters of related pathways.</p>
+      <div class="images">
+        <img src="ORA/emapplot_GO.png" alt="Enrichment Map ORA" style="width: 80%;">
+      </div>
+
+      <h3>Gene-concept network</h3>
+      <p>Links genes and terms; multiple terms can share genes; log2FC color optional.</p>
+      <div class="images">
+        <img src="ORA/enrichGO_cnetplot.png" alt="Gene-concept ORA" style="width: 80%;">
+      </div>
+    </details>
+  </div>
+
+  <div class="content">
+    <details>
+      <summary><h2>Customized Representation: GOChord</h2></summary>
+      <p>The GOChord plot shows gene-process relationships in circular format, generated with the Goplot R package. Ribbons link genes to enriched terms.</p>
+      <div class="images">
+        <img src="GSEA/GO_Mutant_WT_GO_chord_all_2025.png" alt="GOChord Plot" style="width: 80%;">
+      </div>
+    </details>
+  </div>
+
+  <div class="content">
+    <details>
+      <summary><h2>WebGestalt: Web-based Enrichment Analysis</h2></summary>
+      <p>WebGestalt (WEB-based Gene SeT AnaLysis Toolkit) is an online tool for gene enrichment analysis, supporting multiple organisms and data sources.</p>
+      <p style="text-align: center;">
+        <a href="https://www.webgestalt.org/" target="_blank" style="font-weight: bold; color: var(--primary); text-decoration: underline;">
+          ➤ Visit WebGestalt
+        </a>
+      </p>
+    </details>
+  </div>
+
+</body>
+</html>
