@@ -1,3 +1,4 @@
+<html lang="en">
 <h1>Applications overview</h1>
 Aplicaciones_tarifas.html
 <details open>
@@ -79,7 +80,5 @@ Aplicaciones_tarifas.html
     <tr><td class="app-name"><a href="shotgun.html" target="_blank" >Shotgun metagenomics</a></td><td>A determinar</td><td>Data quality control, Trimming, DNA host removing, de novo assembly, Taxonomic profiling (kraken, centrifuge, metaPhIAn, BLAST, DIAMOND), Gene functional annotation (Prokka, eggNOG-mapper HUMAnN3), statistical analysis (phyloseq..deseq…)</td></tr>
   </table>
 </details>
-
-</body>
 </html>
 
