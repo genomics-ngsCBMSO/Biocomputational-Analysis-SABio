@@ -128,11 +128,18 @@
     }
 
     .bigstep-title {
+      display: block;
       font-weight: bold;
       font-size: 1.2rem;
       margin-bottom: 15px;
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
     }
 
+    .bigstep-title:hover {
+      color: var(--accent);
+    }
     .subbuttons {
       display: flex;
       flex-direction: column;
