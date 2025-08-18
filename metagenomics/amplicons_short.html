@@ -115,42 +115,71 @@
       text-decoration: underline;
     }
 
-        .substeps {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .subcard {
-      background-color: white;
-      color: var(--primary);
-      font-weight: bold;
-      padding: 15px 25px;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .subcard:hover {
+    .bigstep {
       background-color: var(--primary);
       color: white;
-      transform: translateY(-3px);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin: 10px 0;
+      width: 80%;
+      max-width: 320px;
+      text-align: center;
     }
+
+    .bigstep-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .subbuttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .subbuttons a {
+      background: white;
+      color: var(--primary);
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .subbuttons a:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-2px);
+    }
+
   </style>
 </head>
 <body>
 
+  <!-- MENU INICIAL -->
   <h1>Basic RNAseq analysis offered by SABio</h1>
 
-  <div class="buttons">
+    <div class="buttons">
     <a href="#fase1">Step 1: Data quality control</a>
     <div class="arrow">↓</div>
     <a href="#fase2">Step 2: Trimming</a>
     <div class="arrow">↓</div>
-    <a href="#fase3">Step 3: QIIME</a>
+
+    <!-- Bloque especial para Step 3 -->
+    <div class="bigstep">
+      <div class="bigstep-title">Step 3: QIIME</div>
+      <div class="subbuttons">
+        <a href="#fase3_1">Step 3.1: Import data</a>
+        <a href="#fase3_2">Step 3.2: Quality filtering</a>
+        <a href="#fase3_3">Step 3.3: Taxonomic assignment</a>
+        <a href="#fase3_4">Step 3.4: Diversity analysis</a>
+      </div>
+    </div>
+
     <div class="arrow">↓</div>
     <a href="#fase4">Step 4: Quantification</a>
     <div class="arrow">↓</div>
@@ -158,6 +187,7 @@
     <div class="arrow">↓</div>
     <a href="#fase5_1">Step 5.1: PCA loadings biplot</a>
   </div>
+
 
   <div class="content" id="fase1">
     <h2>Step 1: Data Quality Control</h2>
