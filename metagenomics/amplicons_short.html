@@ -156,6 +156,24 @@
       transform: translateY(-2px);
     }
 
+        .substep-card {
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .substep-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .substep-card h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
   </style>
 </head>
 <body>
@@ -207,39 +225,32 @@
     </div>
   </div>
 
+    <!-- Super recuadro del Step 3 -->
   <div class="content" id="fase3">
     <h2>Step 3: QIIME</h2>
-    <p>QIIME is a pipeline for microbiome analysis. Inside this step, we divide the process into several sub-steps:</p>
+    <p>This step uses QIIME pipeline for microbiome analysis. It contains several sub-steps shown below:</p>
 
-    <!-- Subcuadrados -->
-    <div class="substeps">
-      <a href="#fase3_1" class="subcard">Step 3.1: Import data</a>
-      <a href="#fase3_2" class="subcard">Step 3.2: Quality filtering</a>
-      <a href="#fase3_3" class="subcard">Step 3.3: Taxonomic assignment</a>
-      <a href="#fase3_4" class="subcard">Step 3.4: Diversity analysis</a>
+    <div class="substep-card" id="fase3_1">
+      <h3>Step 3.1: Import data</h3>
+      <p>Description about how the data is imported into QIIME...</p>
+    </div>
+
+    <div class="substep-card" id="fase3_2">
+      <h3>Step 3.2: Quality filtering</h3>
+      <p>Explanation of the filtering process...</p>
+    </div>
+
+    <div class="substep-card" id="fase3_3">
+      <h3>Step 3.3: Taxonomic assignment</h3>
+      <p>Explanation of taxonomic classification...</p>
+    </div>
+
+    <div class="substep-card" id="fase3_4">
+      <h3>Step 3.4: Diversity analysis</h3>
+      <p>Explanation of alpha and beta diversity metrics...</p>
     </div>
   </div>
 
-  <!-- Subpasos individuales -->
-  <div class="content" id="fase3_1">
-    <h2>Step 3.1: Import data</h2>
-    <p>Here you describe how the data is imported into QIIME...</p>
-  </div>
-
-  <div class="content" id="fase3_2">
-    <h2>Step 3.2: Quality filtering</h2>
-    <p>Explain the filtering process...</p>
-  </div>
-
-  <div class="content" id="fase3_3">
-    <h2>Step 3.3: Taxonomic assignment</h2>
-    <p>Explanation about taxonomic classification...</p>
-  </div>
-
-  <div class="content" id="fase3_4">
-    <h2>Step 3.4: Diversity analysis</h2>
-    <p>Explanation of alpha and beta diversity metrics...</p>
-  </div>
 
   <div class="content" id="fase4">
     <h2>Step 4: Quantification</h2>
