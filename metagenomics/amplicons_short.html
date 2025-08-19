@@ -269,8 +269,18 @@
     </div>
 
     <div class="substep-card" id="fase3_2">
-      <h3>Step 3.2: Quality filtering</h3>
-      <p>Explanation of the filtering process...</p>
+      <h3>Step 3.2: Denoising and Clustering</h3>
+      <p>In this step, sequencing reads are processed to remove errors, reduce redundancy, and identify biologically meaningful sequence variants.</p>
+      <ul>
+        <li><strong>Denoising:</strong> 
+          Raw sequencing reads are processed to correct errors and remove spurious or low-quality sequences, ensuring high-fidelity data for downstream analysis.</li>
+        <li><strong>Dereplication:</strong> 
+          Identical sequences are consolidated to reduce redundancy, optimize computational efficiency, and minimize memory usage during subsequent processing steps.</li>
+        <li><strong>Clustering:</strong> 
+          Similar sequences are grouped into representative sequences, enabling robust identification of biologically relevant variants.</li>
+      </ul>
+      <p>For this workflow, the <strong>DADA2</strong> algorithm implemented in <strong>QIIME 2</strong> is employed. DADA2 performs comprehensive error correction, filters out chimeric and singleton sequences, merges paired-end reads, and generates dereplicated, high-quality sequence variants.</p>
+      <p>The resulting features, obtained after denoising and clustering, are referred to as <strong>amplicon sequence variants (ASVs)</strong>, representing distinct biological sequences at single-nucleotide resolution.</p>
     </div>
 
     <div class="substep-card" id="fase3_3">
@@ -331,6 +341,7 @@
 
 </body>
 </html>
+
 
 
 
