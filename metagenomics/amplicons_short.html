@@ -20,6 +20,7 @@
       margin: 0;
       color: var(--text-color);
       scroll-behavior: smooth;
+      text-align: justify;
     }
 
     h1, h2 {
@@ -250,8 +251,16 @@
     <p>QIIME 2 is a powerful, extensible, and decentralized microbiome analysis package with a focus on data and analysis transparency. QIIME 2 enables researchers to start an analysis with raw DNA sequence data and finish with publication-quality figures and statistical results.</p>
 
     <div class="substep-card" id="fase3_1">
-      <h3>Step 3.1: Import data</h3>
-      <p>Description about how the data is imported into QIIME...</p>
+      <h3>Step 3.1: Data importation and preprocessing</h3>
+      <p>In metagenomic workflows, raw sequencing data must undergo a series of preprocessing steps to ensure accuracy and reliability of downstream analyses. These steps include:</p>
+      <ul>
+        <li><strong>Demultiplexing:</strong>
+          Assigning sequencing reads to their corresponding samples based on barcode sequences,thereby enabling the separation of mixed data generated in multiplexed sequencing runs.</li>
+        <li><strong>Primer removal:</strong>
+          Trimming amplification primer sequences from the reads, as their presence can introduce bias and hinder accurate sequence alignment, taxonomic classification, and diversity estimation.</li>
+        <li><strong>Paired-end read joining:</strong>
+          Merging forward and reverse reads that overlap into a single contiguous sequence, which improves read quality, extends sequence length, and enhances the resolution of microbial community profiling.</li>
+      </ul>
     </div>
 
     <div class="substep-card" id="fase3_2">
@@ -317,6 +326,7 @@
 
 </body>
 </html>
+
 
 
 
