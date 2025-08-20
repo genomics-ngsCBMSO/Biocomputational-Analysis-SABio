@@ -72,11 +72,8 @@
   <summary>Metagenomics applications</summary>
   <table>
     <tr><th>Application</th><th class="price-col">Fee</th><th class="desc-col">Analyses included</th></tr>
-    <tr><td class="app-name"><a href="amplicons_short.html" target="_blank" >Amplicons metagenomics 16S/18S/ITS (Shortreads)</a></td><td>192,94</td><td>Data quality control, Trimming, Qiime2 (Merging reads, Deoinsing, Clustering, Taxonomic assignment, output tables generation, Diversity & statistical analysis)</td></tr>
+    <tr><td class="app-name"><a href="metagenomics/amplicons_short.html" target="_blank" >Amplicons metagenomics 16S/18S/ITS (Shortreads)</a></td><td>192,94</td><td>Data quality control, Trimming, Qiime2 (Merging reads, Deoinsing, Clustering, Taxonomic assignment, output tables generation, Diversity & statistical analysis)</td></tr>
     <tr><td class="app-name"><a href="amplicons_long.html" target="_blank" >Amplicons metagenomics 16S/18S/ITS (Longreads)</a></td><td>A determinar</td><td>Data quality control, Trimming, Error correction, Dereplication, Clustering, Denoising, Taxonomic assignment, output tables generation, Diversity & statistical analysis</td></tr>
     <tr><td class="app-name"><a href="shotgun.html" target="_blank" >Shotgun metagenomics</a></td><td>A determinar</td><td>Data quality control, Trimming, DNA host removing, de novo assembly, Taxonomic profiling (kraken, centrifuge, metaPhIAn, BLAST, DIAMOND), Gene functional annotation (Prokka, eggNOG-mapper HUMAnN3), statistical analysis (phyloseq..deseq…)</td></tr>
   </table>
 </details>
-
-</body>
-</html>
