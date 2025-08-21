@@ -1,3 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplicaciones</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      padding: 20px;
+    }
+    details {
+      margin-bottom: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 10px;
+    }
+    summary {
+      font-size: 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th {
+      background-color: #e0ccff;
+      color: #333;
+      padding: 10px;
+      text-align: left;
+    }
+    td {
+      padding: 8px;
+      border-top: 1px solid #ccc;
+      vertical-align: top;
+    }
+    .price-col {
+      width: 80px;
+      white-space: nowrap;
+    }
+    .desc-col {
+      width: 55%;
+    }
+    .app-name a {
+      color: #5c3d99;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .app-name a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
 <h1>Applications overview</h1>
 
 <details open>
@@ -77,3 +136,6 @@
     <tr><td class="app-name"><a href="metagenomics/shotgun/shotgun.html" target="_blank" >Shotgun metagenomics</a></td><td>A determinar</td><td>Data quality control, Trimming, DNA host removing, de novo assembly, Taxonomic profiling (kraken, centrifuge, metaPhIAn, BLAST, DIAMOND), Gene functional annotation (Prokka, eggNOG-mapper HUMAnN3), statistical analysis (phyloseq..deseq…)</td></tr>
   </table>
 </details>
+
+</body>
+</html>
