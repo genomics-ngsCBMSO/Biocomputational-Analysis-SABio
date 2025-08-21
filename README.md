@@ -76,8 +76,8 @@
   <summary>Epigenomic applications</summary>
   <table>
     <tr><th>Application</th><th class="price-col">Prize</th><th class="desc-col">Analyses included</th></tr>
-    <tr><td class="app-name"><a href="epigenomics/chipseq/chipseq.html"target="_blank" >Basic ChipSeq</a></td><td>175,4</td><td>Data Quality Control, Trimming, Alignment, Peak calling broad/narrow peaks, normalised bigWig files, gene-body meta-profile, ChIP-seq quality metrics, Peak annotation to gene features, creation of consensus peakset across all samples</td></tr>
-    <tr><td class="app-name"><a href="epigenomics/atacseq/atacseq.html"target="_blank" >Basic ATACseq</a></td><td>193,38</td><td>Data Quality Control, Trimming, Alignment, Peak calling broad/narrow peaks, normalised bigWig files, gene-body meta-profile, ChIP-seq quality metrics, Peak annotation to gene features, creation of consensus peakset across all samples</td></tr>
+    <tr><td class="app-name"><a href="epigenomics/chipseq/chipseq.html" target="_blank" >Basic ChipSeq</a></td><td>175,4</td><td>Data Quality Control, Trimming, Alignment, Peak calling broad/narrow peaks, normalised bigWig files, gene-body meta-profile, ChIP-seq quality metrics, Peak annotation to gene features, creation of consensus peakset across all samples</td></tr>
+    <tr><td class="app-name"><a href="epigenomics/atacseq/atacseq.html" target="_blank" >Basic ATACseq</a></td><td>193,38</td><td>Data Quality Control, Trimming, Alignment, Peak calling broad/narrow peaks, normalised bigWig files, gene-body meta-profile, ChIP-seq quality metrics, Peak annotation to gene features, creation of consensus peakset across all samples</td></tr>
     <tr><td class="app-name"><a href="epigenomics/chipseq_dbs/chipseq_dbs.html" target="_blank" >Basic ChipSeq + Differential Binding Sites (DBS) + Enrich Motifs</a></td><td>306,95</td><td>Count reads in peaks, Differential binding sites detection (DBS), motifs analysis</td></tr>
     <tr><td class="app-name"><a href="epigenomics/atacseq_dar/atacseq_dar.html" target="_blank" >Basic ATACseq + Differential Accesible Regions (DAR) + Enrich Motifs</a></td><td>368,48</td><td>Count reads in peaks, Differential accesible sites detection (DARs), motifs analysis</td></tr>
   </table>
@@ -113,7 +113,7 @@
     <tr><td class="app-name"><a href="assembly/assembly/assembly.html" target="_blank" >Assembly 100 kb-1 Mb</a></td><td>350,8</td><td>“Same”</td></tr>
     <tr><td class="app-name"><a href="assembly/assembly/assembly.html" target="_blank" >Assembly 1-10 Mb</a></td><td>631,44</td><td>“Same”</td></tr>
     <tr><td class="app-name"><a href="assembly/assembly/assembly.html" target="_blank" >Assembly 10-50 Mb</a></td><td>920,85</td><td>“Same”</td></tr>
-    <tr><td class="app-name"><a href="assembly/assembly/assembly.html"target="_blank" >Assembly >50 Mb</a></td><td>A determinar</td><td>“Same”</td></tr>
+    <tr><td class="app-name"><a href="assembly/assembly/assembly.html" target="_blank" >Assembly >50 Mb</a></td><td>A determinar</td><td>“Same”</td></tr>
   </table>
 </details>
 
