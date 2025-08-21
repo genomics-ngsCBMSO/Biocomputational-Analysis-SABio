@@ -67,8 +67,8 @@
     <tr><td class="app-name"><a href="transcriptomics/pathway_enrichment/rutas.html" target="_blank" >Basic pathway enrichment</a></td><td>140,32</td><td>Functional enrichment analysis (GSEA and/or ORA)</td></tr>
 	<tr><td class="app-name"><a href="transcriptomics/rnaseq/rnaseq.html" target="_blank">RNAseq</a> + <a href="transcriptomics/pathway_enrichment/rutas.html" target="_blank">Pathway enrichment</a></td><td>263,1</td><td>Data Quality Control, Trimming, Alignment, Gene expression quantification, Differential expression profiling, Functional GO enrichment analysis (GSEA and/or ORA)</td></tr>
     <tr><td class="app-name"><a href="transcriptomics/splicing/splicing.html">Splicing</a></td><td>87,7</td><td>Event-based alternative splicing analysis with specialized software</td></tr>
-    <tr><td class="app-name"><a href="transcriptomics/small_rnaseq/small_rnaseq.html"target="_blank" >Small RNA-Seq</a></td><td>192,94</td><td>Data quality control, Trimming, Alignment to reference genome, Alignment to known microRNAs, Quantification of microRNA expresion, Normalization, Differential expression analysis, Novel microRNAs discovery, Visualization of the results</td></tr>
-    <tr><td class="app-name"><a href="transcriptomics/small_rnaseq_enrichment/small_rnaseq_enrichment.html"target="_blank" >Basic pathway enrichment of small RNA-Seq</a></td><td>149,09</td><td>Functional GO enrichment analysis of miRNA-mRNA pathways</td></tr>
+    <tr><td class="app-name"><a href="transcriptomics/small_rnaseq/small_rnaseq.html" target="_blank" >Small RNA-Seq</a></td><td>192,94</td><td>Data quality control, Trimming, Alignment to reference genome, Alignment to known microRNAs, Quantification of microRNA expresion, Normalization, Differential expression analysis, Novel microRNAs discovery, Visualization of the results</td></tr>
+    <tr><td class="app-name"><a href="transcriptomics/small_rnaseq_enrichment/small_rnaseq_enrichment.html" target="_blank" >Basic pathway enrichment of small RNA-Seq</a></td><td>149,09</td><td>Functional GO enrichment analysis of miRNA-mRNA pathways</td></tr>
   </table>
 </details>
 
