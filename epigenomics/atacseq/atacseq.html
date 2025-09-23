@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ATACseq Analysis - Fancy Version</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--accent-light, #6aa8a0);
+      font-size: 1.4rem !important; 
+      font-weight: 800;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .buttons a {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin: 5px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .buttons a.substep {
+      margin-left: 20px;   /* indent subsection */
+      font-size: 0.95em;   /* slightly smaller text (optional) */
+      color: #555; 
+      background-color: #e6f0ff
+    }
+
+    .buttons .arrow {
+      text-align: center;
+      margin: 5px 0;
+    }
+
+    .buttons a:hover {
+      background-color: #0047b3;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .content ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    a.report-link {
+      display: inline-block;
+      text-align: center;
+      margin: 20px auto;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .arrow.subarrow {
+      font-size: 0.8em;
+      color: #aaa;
+      margin-left: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Basic ATACseq analysis offered by SABio</h1>
+
+  <div class="buttons">
+    <a href="#fase1">Step 1: Data quality control</a>
+    <div class="arrow">↓</div>
+  
+    <a href="#fase2">Step 2: Trimming</a>
+    <div class="arrow">↓</div>
+  
+    <a href="#fase3">Step 3: Alignment</a>
+    <div class="arrow">↓</div>
+  
+    <a href="#fase4">Step 4: Enrichment visualization</a>
+
+    <a href="#fase4_1" class="substep">Step 4.1: Create normalized bigWig files</a>
+    <a href="#fase4_2" class="substep">Step 4.2: Generate gene-body metaprofile</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase5">Step 5: Peak calling</a>
+
+    <a href="#fase5_1" class="substep">Step 5.1: Peak annotation to gene features</a>
+    <a href="#fase5_2" class="substep">Step 5.2: Count reads in peaks</a>
+    <a href="#fase5_3" class="substep">Step 5.3: Creation of a consensus peakset accross samples</a>
+
+  </div>
+  
+
+  <div class="content" id="fase1">
+    <h2>Step 1: Data Quality Control</h2>
+    <p>Raw sequencing data (FASTQ files) is assessed for quality using tools like FastQC and MultiQC. This step detects issues such as adapter contamination, low-quality reads, or GC bias before continuing with further analysis.</p>
+    <div class="images">
+      <img src="images/fastqc_mal.png" alt="Quality control" style="width: 45%;">
+      <img src="images/fastqc_bien.png" alt="Quality control bad" style="width: 45%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase2">
+    <h2>Step 2: Trimming</h2>
+    <p>Trimming removes adapter sequences and low-quality bases from reads. Tools like Trimmomatic or fastp ensure that only high-quality sequences are kept, improving mapping efficiency and accuracy.</p>
+    <div class="images">
+      <img src="images/table_trim.png" alt="Trimming" style="width: 55%;">
+      <img src="images/fastp_filtered_reads_plot.png" alt="Lecturas limpias" style="width: 55%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase3">
+    <h2>Step 3: Alignment</h2>
+    <p>Adapter-trimmed reads are mapped to the reference assembly using Bowtie2. This step produces BAM files, showing where each read maps and allowing for peak detection.</p>
+    <div class="images">
+      <img src="images/alignment_ATAC2.png" alt="Alineamiento" style="width: 700px; height: auto;">
+    </div>
+  </div>
+
+  <div class="content" id="fase4">
+    <h2>Step 4: Enrichment visualization</h2>
+    <p>This step generates files and plots suitable for visualizing the enrichment both genome-wide and over specific genomic features. The output can help determine whether the ATAC-seq signal is consistent and biologically meaningful.</p>
+  </div>
+
+  <div class="content" id="fase4_1">
+    <p class="subtitle">Step 4.1: Create normalized bigWig files</p>
+    <p>The bigWig fomat is in an indexed binary format useful for displaying dense, continuous data in genome browsers such as the UCSC and IGV. Normalization allows to compare the coverage accross multiple samples - this is not possible with BAM files.</p>
+    <div class="images">
+      <img src="images/bigwig_IGV_tracks.png" alt="Enrichment heatmap" style="width: 90%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase4_2">
+    <p class="subtitle">Step 4.2: Generate gene-body metaprofile</p>
+    <p>Generate plots showing the signal or enrichment score for your data over sets of genomics regions, typically genes. This gives you a quick visualization for the genome-wide enrichment of your samples at the TSS, and accross the gene body.</p>
+    <div class="images">
+      <img src="images/TSS_profile.png" alt="Quality control" style="width: 45%;">
+      <img src="images/body_prof.png" alt="Quality control bad" style="width: 45%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase5">
+    <h2>Step 5: Peak calling</h2>
+    <p>MACS2 is one of the most popular peak-calling algorithms for ChIP-seq. For ATAC-seq data we are also looking for genome-wide regions of enrichment but in this case without comparison to a standard control sample (e.g. input DNA).</p>
+  </div>
+
+  <div class="content" id="fase5_1">
+    <p class="subtitle">Step 5.1: Peak annotation to gene features</h2>
+    <p>Peaks are annotated relative to known genomic features (e.g. conding sequence, intergenic regions, closest TSS, ...).</p>
+    <div class="images">
+      <img src="images/peak_annotation.png" alt="Quality control" style="width: 55%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase5_2">
+    <p class="subtitle">Step 5.2: Count reads in peaks</h2>
+    <p>FRiP (Fraction of Reads in Peaks) is a metric used to assess the quality of ChIP-seq and ATAC-seq data. The highest FRiP is, the better. According to ENCODE, ideally FRiP should be > 0.3, however FRiP > 0.2 is still acceptable. </p>
+    <div class="images">
+      <img src="images/frip.png" alt="Quality control" style="width: 30%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase5_3">
+    <p class="subtitle">Step 5.3: Creation of a consensus peakset accross samples</h2>
+    <p>In order to perform differential accesibility analysis we need to be able to carry out the read quantification for the same interval across all of the samples in the experiment. To this end, the individual peak-sets called per sample have to be merged toggether in order to create a consensus set of peaks.</p>
+  </div>
+
+
+
+
+</body>
+</html>
