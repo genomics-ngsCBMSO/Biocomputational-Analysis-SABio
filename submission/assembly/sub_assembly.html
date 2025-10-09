@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submission - Assembly - SABio v0</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-light: #617dff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .buttons a {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin: 5px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .buttons a:hover {
+      background-color: #0047b3;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+      margin: 5px 0;
+    }
+
+    .substeps {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .substeps a {
+      background-color: var(--primary-light); /* color más claro para subpasos */
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-align: center;
+      display: inline-block;
+      min-width: 250px;
+      z-index: 2;
+    }
+
+    .substeps a:hover {
+      background-color: #1a75d1;
+      transform: translateY(-2px);
+    }
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .content ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    a.report-link {
+      display: inline-block;
+      text-align: center;
+      margin: 20px auto;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }    
+  </style>
+</head>
+<body>
+
+  <h1>Assembly + annotation submission offered by SABio</h1>
+  <div class="content" id="intro">
+      <p>ENA (<b>E</b>uropean <b>N</b>ucleotide <b>A</b>rchive) is a european public repository that provides free and open access to raw and annotated DNA and RNA sequences, along with related experimental data and metadata. In SABio, we are official ENA brokers, which allow us to submit and manage studies from our ENA broker space. 
+      </p></p>
+      </p></p><i>Note:</i> All our analysis projects include <i>for free</i> the ENA upload of <u>raw and annotated data which will eventually become public</u>.</p>
+      </p></p>
+      </p>If you want to upload your data to a different repository (GEO, ArrayExpress, etc.), ask for a customized upload project.</p>
+      <h2>General overview of submission</h2>
+      <div class="images">
+        <img src="0-ENAschema.png" alt="ENA submission schema" style="background-color:white; width: 60%;">
+      </div>
+  </div>
+   
+  <div class="buttons">
+    <a href="#fase1">Step 1: Register Study</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase2">Step 2: Sample Creation</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase3">Step 3: Reads upload</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase4">Step 4: Register reads</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase5">Step 5: Assembly files preparation</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase6">Step 6: Assembly upload</a>
+  </div>
+
+  <div class="content" id="fase1">
+    <h2>Step 1: Register Study</h2>
+    <div class="images">
+      <img src="1-Study_schema.png" alt="Study" style="width: 45%;">
+    </div>
+    <p>First, the project information is registered. We provide a short study title, an abstract containing the general information about the project and the release date for public access (with a maximum of 2 years that, as brokers, we can extend as needed).</p>
+    </p></p>
+    </p>The locus tag prefix for the assembly is reserved when registering the study. It is user-defined, contains only alpha-numeric characters, at least 3 characters long and upper case, must start with a letter, and should not contain symbols.</p>
+    <div class="images">
+      <img src="1-Study_register.png" alt="Study" style="width: 80%;">
+    </div>
+    </p>A project ID will be associated with this information.</p>
+  </div>
+
+  <div class="content" id="fase2">
+    <h2>Step 2: Sample Creation</h2>
+    <p>Each sample represents a unit of biomaterial, typically associated with a single collection event, which a sequencing library was produced from.</p>
+        <div class="images">
+      <img src="2-Samples_schema.png" alt="Samples" style="width: 45%;">
+    </div>
+    <p>The metadata associated with each sample must include tax ID, scientific name, a sample title, alias and description, collection date and its geographic location.</p>    
+    <div class="images">
+      <img src="2-Samples_metadata.png" alt="Samples" style="width: 25%;">
+    </div>
+    </p>Each sample will be associated with an unique sample ID.</p>
+  </div>
+
+  <div class="content" id="fase3">
+    <h2>Step 3: Reads upload</h2>
+    <p>Reads files in compressed .fastq format are uploaded via command line to our ENA broker space. To assure correct upload, an md5 code for each file is generated and uploaded as well.</p>
+  </div>
+
+  <div class="content" id="fase4">
+    <h2>Step 4: Register reads</h2>
+    <p>The previously uploaded reads are linked to their corresponding study ID and sample ID.</p>
+        <div class="images">
+      <img src="4-Reads_schema.png" alt="Reads" style="width: 45%;">
+    </div>
+    <p>The metadata associated with each read file (single-end sequences) or pair of reads files (paired-end sequences) must include all relevant information about the library creation and sequencing platform.</p>    
+    <div class="images">
+      <img src="4-Reads_metadata.png" alt="Reads" style="width: 25%;">
+    </div>
+    </p>Each read file or pair of files will be associated with two unique IDs: one for experiment (which holds metadata) and one for run (which holds data).</p>
+  </div>
+  
+  <div class="content" id="fase5">
+    <h2>Step 5: Assembly files preparation</h2>
+    <p>ENA recognises three assembly levels which describe the highest level of sequence within the assembly: contig, scaffold or chromosome. Depending on the level, the files needed for submission may differ:</p>
+
+    <div class="images">
+      <img src="5-Assembly_levels.png" alt="Assembly" style="width: 85%;">
+    </div>
+
+    <p>The <b>manifest file</b> describes the assembly, including metadata and file names. It is a plain text file with two columns indicanting the field and its value. </p>  
+    <p>For genomes, mandatory fields include: Study accession, Sample accession, Unique assembly name (previously reserved locus tag prefix), Assembly type, Estimated coverage, Assembly program and Sequencing platform/s.</p>
+    <p>Optional fields include a description of the genome assembly, a list of authors and address and the assembly-related run accessions, among others.</p>
+    </p></p>
+    <p>The <b>flat file</b> contains sequences and annotation in EMBL-Bank flat file format. It can be provided by user or generated by SABio analysts. EMBLmyGFF3 tool translates sequence and annotation files to a single flat file and provides warnings if any feature is not EMBL approved.</p>  
+    </p></p>
+    <p>For chromosome level assemblies, the <b>chromosome list file</b> is also mandatory. It is a plain text file that includes, for each chromosome, the sequence name, chromosome name and type of chromosome. Additionally, a fourth column contaning chromosome location can be provided.</p>  
+  </div>
+  
+  <div class="content" id="fase6">
+    <h2>Step 6: Assembly upload</h2>
+    <p>Within ENA, all assemblies are submitted as ‘analysis’ submission objects.</p>
+        <div class="images">
+      <img src="6-Assembly_schema.png" alt="Assembly" style="width: 45%;">
+    </div>
+    <p>Assembly submission is performed via command line. First, a validation step is run and the manifest file, flat file and chromosome list file formats are checked. Then, the submission is performed and the analysis accession is immediately provided. Uploaded files are next revised by ENA, that will send a confirmation email containing the assembly and sequences accessions.</p>    
+
+  </div>
+</body>
+</html>
