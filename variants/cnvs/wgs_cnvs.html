@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CNVs - SABio v1</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-light: #617dff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .buttons a {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin: 5px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .buttons a:hover {
+      background-color: #0047b3;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+      margin: 5px 0;
+    }
+
+    .substeps {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .substeps a {
+      background-color: var(--primary-light); /* color más claro para subpasos */
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-align: center;
+      display: inline-block;
+      min-width: 250px;
+      z-index: 2;
+    }
+
+    .substeps a:hover {
+      background-color: #1a75d1;
+      transform: translateY(-2px);
+    }
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .content ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    a.report-link {
+      display: inline-block;
+      text-align: center;
+      margin: 20px auto;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }    
+  </style>
+</head>
+<body>
+
+  <h1>Copy Number Variants (CNV) analysis offered by SABio</h1>
+
+  <div class="buttons">
+    <a href="#fase1">Step 1: Data quality control</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase2">Step 2: Trimming</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase3">Step 3: Alignment</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase4">Step 4: CNV detection</a>
+  </div>
+
+  <div class="content" id="fase1">
+    <h2>Step 1: Data Quality Control</h2>
+    <p>Raw sequencing data (FASTQ files) is assessed for quality using tools like FastQC and MultiQC. This step detects issues such as adapter contamination, low-quality reads, or GC bias before continuing with further analysis.</p>
+    <div class="images">
+      <img src="1-fastqc_mal.png" alt="Quality control" style="width: 45%;">
+      <img src="1-fastqc_bien.png" alt="Quality control bad" style="width: 45%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase2">
+    <h2>Step 2: Trimming</h2>
+    <p>Trimming removes adapter sequences and low-quality bases from reads. Trimmomatic, fastP or TrimGalore! are some of the tools used to keep only high-quality sequences, improving mapping efficiency and accuracy.</p>
+    <div class="images">
+      <img src="2-table_trim.png" alt="Trimming" style="width: 75%;">
+      <img src="2-fastp_filtered_reads_plot.png" alt="Trimming" style="width: 75%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase3">
+    <h2>Step 3: Alignment</h2>
+    <p>Cleaned reads can be aligned to a reference genome with different alignment software, such as bwa or bowtie. This step produces BAM files, containing the coordinates where each read maps and other measurements of alignment, as strand or quality. The aligned reads can be visualized in genome browsers like IGV.</p>
+    <div class="images">
+      <img src="3-igv.png" alt="Alineamiento" style="width: 95%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase4">
+    <h2>Step 4: CNV detection</h2>
+    <p>Depending on the type of sample and sequencing, a variety of tools can be used to detect CNVs: Control Freec, CNOGpro, CNVpytor... In general, this programs calculate the number of copies of each gene and report it. As an example, Control freec output includes a variety of files with CNVs, statistics, coverage plot (normalized copy number and
+its log2), the GC profile and coverage ratio files.</p>
+    <div class="images">
+      <img src="4-CNVs_per_chr.png" alt="CNVs" style="width: 99%;">
+    </div>
+    <p>In these coverage plots, the x-axis represents genomic coordinates along the chromosome, and the y-axis shows the normalized copy number profile (log₂ scale). To aid interpretation, each dot is colored according to copy number status: green for normal copy number, blue for losses, and red for gains (duplications or amplifications).</p>
+  </div>
+
+</body>
+</html>
