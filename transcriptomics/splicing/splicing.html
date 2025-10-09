@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Splicing Analysis - SABio v1</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-light: #617dff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .buttons a {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin: 5px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .buttons a:hover {
+      background-color: #0047b3;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+      margin: 5px 0;
+    }
+
+    .substeps {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .substeps a {
+      background-color: var(--primary-light); /* color más claro para subpasos */
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-align: center;
+      display: inline-block;
+      min-width: 250px;
+      z-index: 2;
+    }
+
+    .substeps a:hover {
+      background-color: #1a75d1;
+      transform: translateY(-2px);
+    }
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .content ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    a.report-link {
+      display: inline-block;
+      text-align: center;
+      margin: 20px auto;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }    
+  </style>
+</head>
+<body>
+
+  <h1>Splicing analysis offered by SABio</h1>
+  <div class="buttons">
+    <a href="#fase1">Step 1: Data quality control</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase2">Step 2: Trimming</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase3">Step 3: Alignment</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase4">Step 4: Quantification</a>
+    <div class="substeps">
+      <a href="#fase4_1">Step 4.1: Quasi-alignment</a>
+      <a href="#fase4_2">Step 4.2: Counting aligned reads</a>
+    </div>
+    <div class="arrow">↓</div>
+
+    <a href="#fase5">Step 5: Differential analysis</a>
+    <div class="substeps">
+      <a href="#fase5_1">Step 5.1: Differential exon usage (DEU)</a>
+      <a href="#fase5_2">Step 5.2: Differential transcript usage (DTU)</a>
+      <a href="#fase5_3">Step 5.3: Differential event-based</a>
+    </div>
+  </div>
+
+  <div class="content" id="fase1">
+    <h2>Step 1: Data Quality Control</h2>
+    <p>Raw sequencing data (FASTQ files) is assessed for quality using tools like FastQC and MultiQC. This step detects issues such as adapter contamination, low-quality reads, or GC bias before continuing with further analysis.</p>
+    <div class="images">
+      <img src="1-fastqc_per_base_sequence_quality_plot-1.png" alt="Quality control" style="width: 60%;">
+      <img src="1-fastqc_sequence_counts_plot-1.png" alt="Quality control counts" style="width: 45%;">
+      <img src="1-fastqc_per_sequence_gc_content_plot-1.png" alt="Quality control GC" style="width: 45%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase2">
+    <h2>Step 2: Trimming</h2>
+    <p>Trimming removes adapter sequences and low-quality bases from reads. Trimmomatic, fastP or TrimGalore! are some of the tools used to keep only high-quality sequences, improving mapping efficiency and accuracy.</p>
+    <div class="images">
+      <img src="2-table_trim.png" alt="Trimming" style="width: 75%;">
+      <img src="2-fastp_filtered_reads_plot.png" alt="Trimming" style="width: 75%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase3">
+    <h2>Step 3: Alignment</h2>
+    <p>Cleaned reads are aligned to a reference genome. For RNAseq data, STAR and hisat2 are the most used aligners. Alignment produces BAM files, which can be used to visualize where each read maps with genome browsers like IGV. One of the possible starting points for splicing differential analysis are these BAM files, were the number of reads correspoding to different isoforms, exons or splicing events can be quantified.</p>
+    <div class="images">
+      <img src="3-IGV.png" alt="Alineamiento" style="width: 100%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase4">
+    <h2>Step 4: Quantification</h2>
+    <p>Splicing-related quantification determines how many reads align to each feature of interest, being these features exons, isoforms or, directly, splicing events. Based on trimmed reads or alignment files, individual count matrices with the raw reads that align to each feature are generated. These matrices will be used to analize differential splicing accross conditions.</p>
+  </div>
+
+
+  <div class="content" id="fase4_1">
+    <h2>Step 4.1: Quasi-alignment</h2>
+    <p> Based on the previously trimmed reads, Salmon software performs a quasi-alignment that directly quantifies the number of reads that map to each transcript.</p>
+    <div class="images">
+      <img src="4.1-salmon_quasialignment.png" alt="salmon" style="width: 75%;">
+    </div>
+  </div>
+
+
+  <div class="content" id="fase4_2">
+    <h2>Step 4.2: Counting aligned reads</h2>
+    <p> Based on the previosly created BAM files, tools like featureCounts or HTSeq count the number of reads supporting a particular exon or transcript.</p>
+    <div class="images">
+      <img src="4.2-featurecount_overlapmethod.png" alt="Conteo" style="width: 40%; height: auto;">
+      <img src="4.2-featureCounts_assignment_plot.png" alt="Conteo" style="width: 58%; height: auto;">
+    </div>
+  </div>
+
+  <div class="content" id="fase5">
+    <h2>Step 5: Differential analysis</h2>
+    <p>Splicing differential analysis can be based on differential exon/transcript usage or in differential splicing event identification. These different approaches will detect features with significant differences between conditions (e.g., control vs treatment). <p>
+    <p><p>
+    <p>Different tools are applied for the different feature analysis. A table showing the features, their normalized counts or base mean and statistical values is a common output of most of them. A graphical representation of these results can also be performed, as we show below.</p>
+    </p>
+  </div>
+
+  <div class="content" id="fase5_1">
+    <h2>Step 5.1: Differential exon usage (DEU).</h2>
+    <p>Departing from HTSeq or featureCounts matrices, differentialy used exons between conditions are determined with tools like DEXSeq or edgeR. Output includes tables with all detected exons and their statistical values, as well as exon expression plots.</p>
+   <div class="images">
+      <img src="5.1-DEU-DexSeq.png" alt="Differential exon usage" style="width: 60%;">
+      <img src="5.1-DEU-edgeR.png" alt="Differential exon usage" style="width: 60%;">
+    </div>
+  </div>
+  
+  <div class="content" id="fase5_2">
+    <h2>Step 5.2: Differential transcript usage (DTU).</h2>
+    <p>DEXSeq is also used to compute differential transcript usage. This software analize the differentially expressed transcripts and calculates the genes which elicit significant transcript usage. Then, by using stageR R package, the transcripts of those identified by DEXSeq DTU that in fact participate in DTU will be detected.
+    The detected genes or transcripts with a significant alteration can be graphically represented as for <a href="./../rnaseq/rnaseq.html" target="_blank">differentially expressed genes</a> or used for <a href="./../rutas/rutas.html" target="_blank">ORA analysis</a>. </p>
+   <div class="images">
+      <img src="5.2-DTU_DexSeqResults.png" alt="Differential exon usage" style="width: 95%;">
+      <img src="5.2-DTU_DexSeq_volcano.png" alt="Differential exon usage" style="width: 75%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase5_3">
+    <h2>Step 5.3: Differential event-based.</h2>
+    <p>Event-based differential splicing analysis can be computed with rMATS, SUPPA and MISO software, among others. These methods quantify splicing variation by calculating PSI (Percent Spliced In) values for each alternative splicing event. Differential splicing is then assessed based on ΔPSI (change in PSI) between conditions.<p> 
+     <p><p>   
+    <p>rMATS and SUPPA identify differential events by event type (e.g., exon skipping, intron retention), with SUPPA additionally linking events to their corresponding transcripts.<p> 
+   <div class="images">
+      <img src="5.3-rmats_event_types.png" alt="Differential events" style="width: 30%;">
+      <img src="5.3-rmats_event_distribution.png" alt="Differential events" style="width: 40%;">
+    </div>
+    <p> MISO is particularly known for its sashimi plots, graphical representations of differential splicing events that depict read coverage and splice junction usage.
+   <div class="images">
+      <img src="5.3-ENSG00000004961.png" alt="Differential events" style="width: 70%;">
+    </div>
+  </div>
+</body>
+</html>
