@@ -285,15 +285,26 @@
       <div class="images">
         <img src="images/preprocessing.png" alt="Preprocessing steps in Qiime2" style="width: 40%;">
       </div>
-      <p>In metagenomic workflows, raw sequencing data must undergo a series of preprocessing steps to ensure accuracy and reliability of downstream analyses. These steps include:</p>
+      <p>In metagenomic workflows, raw sequencing data must be properly prepared and structured. 
+      This preprocessing stage ensures that all data entering the workflow is clean, well-organized, and compatible 
+      with the analytical tools used later. The main steps involved include:</p>
       <ul>
         <li><strong>Demultiplexing:</strong>
-          Assigning sequencing reads to their corresponding samples based on barcode sequences, thereby enabling the separation of mixed data generated in multiplexed sequencing runs.</li>
+          Assigning sequencing reads to their corresponding samples based on unique barcode sequences.  
+          This step separates mixed reads from multiplexed sequencing runs and ensures that each sample is 
+          accurately represented in the dataset.</li>
         <li><strong>Primer removal:</strong>
-          Trimming amplification primer sequences from the reads, as their presence can introduce bias and hinder accurate sequence alignment, taxonomic classification, and diversity estimation.</li>
+          Eliminating amplification primer sequences from the reads.  
+          Removing primers is essential to avoid biases, improve sequence accuracy, and ensure optimal performance 
+          during denoising, taxonomic assignment, and diversity calculations.</li>
         <li><strong>Paired-end read joining:</strong>
-          Merging forward and reverse reads that overlap into a single contiguous sequence, which improves read quality, extends sequence length, and enhances the resolution of microbial community profiling.</li>
+          Merging overlapping forward and reverse reads into a single high-quality contiguous sequence (when applicable).  
+          Joined reads provide better resolution of microbial taxa and increase the accuracy of downstream analyses.</li>
       </ul>
+      <p>As part of the preprocessing workflow, we generate an interactive QIIME 2 report that summarizes the quality of the 
+      demultiplexed sequences. This visualization includes per-base quality profiles, sequence length distributions, and 
+      read counts for each sample.</p>
+      <p style="text-align: center;"><a href="enlaces/02_qiime/01_paired_end_sequences.qzv_exported/index.html" target="_blank">View Sequences Report</a></p>
     </div>
 
     <div class="substep-card" id="fase3_2">
@@ -381,6 +392,7 @@
 
 </body>
 </html>
+
 
 
 
