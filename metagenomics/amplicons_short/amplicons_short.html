@@ -247,7 +247,8 @@
 
   <div class="content" id="fase2">
     <h2>Step 2: Trimming</h2>
-    <p>Trimming removes adapter sequences and low-quality bases from reads. Tools like Trimmomatic or fastp ensure that only high-quality sequences are kept, improving mapping efficiency and accuracy.</p>
+    <p>Trimming is an essential step to ensure that only high-quality reads are used in the downstream analysis. During this process, we remove adapter sequences, low-quality bases, and any technical artifacts introduced during sequencing. This greatly improves the accuracy of subsequent analyses such as alignment, denoising, and taxonomic assignment.</p>
+    <p>We use tools such as Trimmomatic or fastp, which automatically detect adapters, trim poor-quality regions, and filter out unreliable reads.</p>
     <div class="images">
       <img src="images/table_trim.png" alt="Trimming" style="width: 55%;">
       <img src="images/fastp_filtered_reads_plot.png" alt="Lecturas limpias" style="width: 55%;">
@@ -366,6 +367,7 @@
 
 </body>
 </html>
+
 
 
 
