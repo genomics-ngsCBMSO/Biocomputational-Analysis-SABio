@@ -312,7 +312,10 @@
       <div class="images">
         <img src="images/denoise_clustering.png" alt="Denoising and clustering in Qiime2" style="width: 55%;">
       </div>
-      <p>In this step, sequencing reads are processed to remove errors, reduce redundancy, and identify biologically meaningful sequence variants.</p>
+      <p>At this stage, sequencing reads are processed to remove noise, correct sequencing errors, and recover 
+        high-resolution biological signal from the data. These steps are essential to ensure that downstream 
+        analyses—such as taxonomic profiling and diversity estimation—are based on accurate, biologically 
+        meaningful sequences.</p>
       <ul>
         <li><strong>Denoising:</strong> 
           Raw sequencing reads are processed to correct errors and remove spurious or low-quality sequences, ensuring high-fidelity data for downstream analysis.</li>
@@ -323,6 +326,37 @@
       </ul>
       <p>For this workflow, the <strong>DADA2</strong> algorithm implemented in <strong>QIIME 2</strong> is employed. DADA2 performs comprehensive error correction, filters out chimeric and singleton sequences, merges paired-end reads, and generates dereplicated, high-quality sequence variants.</p>
       <p>The resulting features, obtained after denoising and clustering, are referred to as <strong>amplicon sequence variants (ASVs)</strong>, representing distinct biological sequences at single-nucleotide resolution.</p>
+
+      <p>
+    This denoising step produces several key outputs that form the basis of all downstream analyses. These files 
+    contain high-quality ASVs, their abundances, and detailed statistics about the cleaning process. The main 
+    outputs are:
+  </p>
+
+  <ul>
+    <li><strong>Feature table:</strong> 
+      A matrix showing how many times each ASV appears in each sample. 
+      This table is fundamental for diversity metrics, differential abundance testing, and community structure analyses.
+      <p style="text-align: center;"><a href="enlaces/02_qiime/02_feature_table.qzv_exported/index.html" target="_blank">View Feature Table</a></p>
+    </li>
+
+    <li><strong>Representative sequences:</strong> 
+      The unique ASV sequences recovered after denoising. 
+      These sequences are later used for taxonomic assignment and phylogenetic tree construction.
+      <p style="text-align: center;"><a href="enlaces/02_qiime/03_rep-seqs.qzv_exported/index.html" target="_blank">View Representative Sequences</a></p>
+    </li>
+
+    <li><strong>Denoising statistics:</strong> 
+      A detailed summary of reads retained, filtered, denoised, merged, and removed as chimeras in each sample. 
+      This report provides insight into data quality and helps evaluate preprocessing performance.
+      <p style="text-align: center;"><a href="enlaces/02_qiime/04_stats.qzv_exported/index.html" target="_blank">View Statistics Report</a></p>
+    </li>
+  </ul>
+
+  <p>
+    Together, these outputs provide a clean, high-resolution representation of the microbial community, enabling 
+    robust and reproducible microbiome analyses.
+  </p>
     </div>
 
     <div class="substep-card" id="fase3_3">
@@ -392,6 +426,7 @@
 
 </body>
 </html>
+
 
 
 
