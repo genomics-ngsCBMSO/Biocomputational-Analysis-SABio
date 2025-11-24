@@ -361,11 +361,62 @@
 
     <div class="substep-card" id="fase3_3">
       <h3>Step 3.3: Taxonomic assignment</h3>
-      <p>A central objective in many metagenomic studies is the identification of the organisms present within a sample, often at the genus or species level. This information is essential for addressing questions such as the detection of potential pathogens in clinical samples or the characterization of microbial communities in environmental contexts.</p>
-      <p>Taxonomic assignment is achieved by comparing query sequences (i.e., features such as ASVs) against curated reference databases containing sequences of known taxonomic composition.</p>
-    <div class="images">
-      <img src="images/taxonomy.png" alt="Taxonomy" style="width: 100%;">
+      <div class="images">
+      <img src="images/taxonomy.png" alt="Taxonomy" style="width: 85%;">
     </div>
+      <p>
+    A central goal in many metagenomic and amplicon-based studies is to determine which organisms are present in 
+    each sample, often at the genus or species level. This information is essential for addressing key biological 
+    and clinical questions, such as identifying potential pathogens, understanding how microbial communities change 
+    over time, or characterizing the composition of environmental microbiomes.
+  </p>
+
+  <p>
+    In QIIME 2, taxonomic assignment is performed by comparing the representative sequences obtained after denoising 
+    (ASVs) against curated reference databases containing sequences of known taxonomic identity. Rather than 
+    relying solely on the closest sequence match — which can be misleading due to similar sequences with different 
+    annotations — QIIME 2 employs taxonomy classifiers that incorporate confidence scoring and consensus-based 
+    decision strategies.
+  </p>
+
+  <p>
+    In this workflow we use an <strong>alignment-based taxonomic classification</strong> approach. The query ASVs 
+    are aligned to reference sequences, and taxonomic labels are assigned based on the consensus of the top matching 
+    hits. This method provides a reliable and interpretable assignment, particularly when dealing with well-curated 
+    databases or when sequences lack strong species-level resolution.
+  </p>
+
+  <p>
+    The result of this process is a taxonomy table linking each ASV to its most confident taxonomic classification 
+    (from phylum down to genus or species when possible). These assignments form the basis for downstream 
+    microbiome analyses, including community composition profiles, differential abundance testing, and ecological 
+    interpretation.
+  </p>
+  <p>
+  The taxonomic classification step generates several key outputs that summarize the identity of the detected 
+  microbial features:
+  </p>
+<ul>
+  <li>
+    <strong>Taxonomy table:</strong> A file containing the assigned taxonomic lineage for each ASV, including 
+    hierarchical ranks such as phylum, class, order, family, genus, and species when confidently resolved. This file 
+    forms the basis for all downstream taxonomic analyses.
+    <p style="text-align: center;"><a href="enlaces/02_qiime/05_taxonomy.qzv_exported/index.html" target="_blank">View Taxonomy Table</a></p>
+  </li>
+  <li>
+    <strong>Search results:</strong> A record of the alignment hits retrieved from the reference database, including 
+    match quality metrics. These results allow users to examine how each ASV aligns with known sequences and to assess 
+    the confidence of the classification.
+    <p style="text-align: center;"><a href="enlaces/02_qiime/06_search_results.qzv_exported/index.html" target="_blank">View Search Results</a></p>
+  </li>
+  <li>
+    <strong>Interactive taxonomy visualization:</strong> An interpretable report that displays the taxonomic 
+    distribution of ASVs across samples, enabling rapid inspection of community composition at different taxonomic 
+    levels. This visualization facilitates the exploration of dominant taxa, rare microbial members, and potential 
+    contaminants.
+    <p style="text-align: center;"><a href="enlaces/02_qiime/07_taxa-bar-plots.qzv_exported/index.html" target="_blank">View Taxonomy Barplot</a></p>
+  </li>
+</ul>
     </div>
 
     <div class="substep-card" id="fase3_4">
@@ -426,6 +477,7 @@
 
 </body>
 </html>
+
 
 
 
