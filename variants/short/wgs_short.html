@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SABio - WGS Short Reads</title>
+
+  <style>
+    :root {
+      --primary: #0066ff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+      text-align: justify;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .buttons a {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 24px;
+      margin: 5px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    .buttons a:hover {
+      background-color: #0047b3;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .content p {
+      line-height: 1.5;
+      font-size: 1.05rem;
+    }
+
+    .content ul {
+      margin-top: 0;
+      padding-left: 20px;
+      line-height: 1.5;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    .substep-card {
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .substep-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .substep-card h3 {
+      margin-top: 0;
+      color: var(--primary);
+      text-align: center;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <h1>Basic WGS (DNAseq) Short Reads<br>offered by SABio</h1>
+
+  <div class="buttons">
+    <a href="#intro">What is WGS?</a>
+    <div class="arrow">↓</div>
+    <a href="#step1">Step 1: Data Quality Control</a>
+    <div class="arrow">↓</div>
+    <a href="#step2">Step 2: Trimming</a>
+    <div class="arrow">↓</div>
+    <a href="#step3">Step 3: Alignment (BWA-MEM)</a>
+    <div class="arrow">↓</div>
+    <a href="#step4">Step 4: Variant Calling (GATK)</a>
+    <div class="arrow">↓</div>
+    <a href="#step5">Step 5: Variant Filtering</a>
+    <div class="arrow">↓</div>
+    <a href="#step6">Step 6: Variant Annotation (SnpEff)</a>
+    <div class="arrow">↓</div>
+    <a href="#step7">Step 7: Coverage & IGV Visualization</a>
+  </div>
+
+  <!-- INTRO -->
+  <div class="content" id="intro">
+    <h2>What is Whole-Genome Sequencing (WGS) using Short Reads?</h2>
+
+    <div class="substep-card">
+      <h3>Introduction to WGS Short Reads</h3>
+
+      <p>
+        <strong>Whole-Genome Sequencing (WGS)</strong> using short-read technology (e.g. Illumina) provides 
+        a comprehensive, high-resolution view of the entire DNA content of an organism. Millions of short fragments 
+        are sequenced and computationally reconstructed to reveal its genomic structure.
+      </p>
+
+      <p>
+        When a <strong>reference genome is available</strong>, this process is known as 
+        <strong>resecuenciación</strong>: newly sequenced reads are <strong>aligned</strong> against the 
+        reference to detect genomic differences.
+      </p>
+
+      <p>
+        This allows precise identification of:
+      </p>
+
+      <ul>
+        <li><strong>SNPs</strong> – single nucleotide variants</li>
+        <li><strong>INDELs &lt;50bp</strong> – small insertions and deletions</li>
+        <li><strong>Small structural changes</strong> detectable from mapping patterns</li>
+      </ul>
+
+      <p>
+        WGS short-reads is widely used in microbial genomics, human genetics, clinical diagnostics, agriculture, 
+        population genomics and evolutionary studies.
+      </p>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="content" id="step1">
+    <h2>Step 1: Data Quality Control</h2>
+
+    <p>
+      Raw FASTQ files are evaluated with <strong>FastQC</strong> and summarized using 
+      <strong>MultiQC</strong>. We detect GC biases, adapter contamination, duplicated reads, per-base quality 
+      and other quality issues to ensure high reliability before alignment.
+    </p>
+
+    <div class="images">
+      <img src="images/fastqc.png" style="width:45%;">
+      <img src="images/multiqc.png" style="width:45%;">
+    </div>
+
+    <p style="text-align:center;">
+      <a href="reports/fastqc_report.html" target="_blank">View FastQC Report</a>
+    </p>
+    <p style="text-align:center;">
+      <a href="reports/multiqc_report.html" target="_blank">View MultiQC Report</a>
+    </p>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="content" id="step2">
+    <h2>Step 2: Trimming</h2>
+
+    <p>
+      Low-quality bases, adapters and technical artefacts are removed using tools such as 
+      <strong>fastp</strong> or <strong>Trimmomatic</strong>. This improves alignment accuracy and reduces 
+      false positives in variant calling.
+    </p>
+
+    <div class="images">
+      <img src="images/trimming.png" style="width:50%;">
+      <img src="images/fastp_report.png" style="width:50%;">
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="content" id="step3">
+    <h2>Step 3: Alignment with BWA-MEM</h2>
+
+    <p>
+      High-quality reads are aligned to the reference genome using <strong>BWA-MEM</strong>, one of the most 
+      accurate and widely used algorithms for short-read mapping.
+    </p>
+
+    <p>
+      After alignment, <strong>Picard</strong> tools are applied for:
+    </p>
+
+    <ul>
+      <li><strong>Sorting</strong> the BAM file</li>
+      <li><strong>Marking duplicates</strong></li>
+      <li><strong>Collecting alignment metrics</strong></li>
+    </ul>
+
+    <div class="images">
+      <img src="images/bwa_mem.png" style="width:60%;">
+    </div>
+
+    <p style="text-align:center;">
+      <a href="reports/alignment_stats.html" target="_blank">View Alignment Metrics</a>
+    </p>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="content" id="step4">
+    <h2>Step 4: Variant Calling with GATK</h2>
+
+    <p>
+      Variant calling is performed using <strong>GATK HaplotypeCaller</strong>, which reconstructs local 
+      haplotypes and identifies:
+    </p>
+
+    <ul>
+      <li>SNPs</li>
+      <li>Small INDELs (&lt;50 bp)</li>
+    </ul>
+
+    <p>
+      The output is a high-confidence <strong>VCF</strong> file containing all detected genomic variants.
+    </p>
+
+    <div class="images">
+      <img src="images/gatk.png" style="width:60%;">
+    </div>
+
+    <p style="text-align:center;">
+      <a href="reports/raw_variants.vcf" target="_blank">Download Raw Variant VCF</a>
+    </p>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="content" id="step5">
+    <h2>Step 5: Variant Filtering</h2>
+
+    <p>
+      Raw variants are filtered using <strong>VCFfilter</strong> to retain only high-quality calls meeting 
+      specific thresholds, such as:
+    </p>
+
+    <ul>
+      <li>Minimum quality (QUAL)</li>
+      <li>Minimum read depth (DP)</li>
+      <li>Allelic balance for heterozygous calls</li>
+    </ul>
+
+    <p>
+      This step reduces false positives and ensures a reliable final variant set.
+    </p>
+
+    <p style="text-align:center;">
+      <a href="reports/filtered_variants.vcf" target="_blank">Download Filtered VCF</a>
+    </p>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="content" id="step6">
+    <h2>Step 6: Variant Annotation with SnpEff</h2>
+
+    <p>
+      Variants are annotated using <strong>SnpEff</strong>, which predicts their biological effect by 
+      overlaying them onto genomic features (genes, CDS, exons, UTRs, etc.).
+    </p>
+
+    <p>SnpEff classifies variants as:</p>
+    <ul>
+      <li><strong>High impact</strong> (loss-of-function, frameshift…)</li>
+      <li><strong>Moderate impact</strong> (missense…)</li>
+      <li><strong>Low impact</strong> (synonymous…)</li>
+      <li><strong>Modifiers</strong> (intergenic, upstream, downstream…)</li>
+    </ul>
+
+    <div class="images">
+      <img src="images/snpeff.png" style="width:50%;">
+    </div>
+
+    <p style="text-align:center;">
+      <a href="reports/snpeff_annotation.html" target="_blank">View Annotation Report</a>
+    </p>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="content" id="step7">
+    <h2>Step 7: Coverage & IGV Visualization</h2>
+
+    <p>
+      Coverage depth is computed across the genome to evaluate sequencing uniformity and detect low-depth regions. 
+      These metrics are shown in <strong>coverage plots</strong> that help assess data quality.
+    </p>
+
+    <div class="images">
+      <img src="images/coverage_plot.png" style="width:60%;">
+    </div>
+
+    <p>
+      Finally, variants and alignments are visualized in <strong>IGV (Integrative Genomics Viewer)</strong>, 
+      allowing inspection of:
+    </p>
+
+    <ul>
+      <li>Read support for each variant</li>
+      <li>Local coverage patterns</li>
+      <li>Potential mapping issues</li>
+      <li>Complex regions</li>
+    </ul>
+
+    <div class="images">
+      <img src="images/igv.png" style="width:60%;">
+    </div>
+
+    <p style="text-align:center;">
+      <a href="reports/igv_session.xml" target="_blank">Download IGV Session</a>
+    </p>
+  </div>
+
+</body>
+</html>
