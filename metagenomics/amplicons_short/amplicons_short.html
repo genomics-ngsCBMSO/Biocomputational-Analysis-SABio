@@ -440,62 +440,80 @@
 
     <div class="substep-card" id="fase3_4">
       <h3>Step 3.4: Diversity analysis</h3>
-      <p>Diversity analyses assess the composition and structure of microbial communities based on phylogenetic relationships between features (e.g., ASVs, OTUs). When sequencing phylogenetic markers such as the 16S rRNA gene, sequences can be aligned to infer evolutionary relatedness, enabling a deeper understanding of community diversity.</p>
-      <p>These analyses are typically divided into two categories: <strong>alpha diversity</strong>, which quantifies diversity within individual samples (e.g., richness and evenness), and <strong>beta diversity</strong>, which measures compositional differences between samples or groups of samples. Statistical comparisons of alpha and beta diversity allow investigators to determine whether microbial diversity differs significantly across conditions, environments, or host-associated factors.</p>
-    <div class="images">
-      <img src="images/alpha.png" alt="Alpha Diversity" style="width: 45%;">
-      <img src="images/beta.png" alt="Beta Diversity" style="width: 45%;">
-    </div>
-    </div>
+      <p>
+    Diversity analysis provides insight into the structure and complexity of microbial communities. These analyses 
+    rely heavily on the representative sequences obtained after denoising and incorporate evolutionary relationships through phylogenetic reconstruction.
+  </p>
+
+  <p>
+    To enable the computation of phylogeny-aware diversity metrics, QIIME 2 performs a series of steps to build a 
+    robust phylogenetic tree:
+  </p>
+
+  <ul>
+    <li>
+      <strong>Multiple sequence alignment:</strong> Representative sequences (ASVs) are aligned using the 
+      <em>mafft</em> algorithm.
+    </li>
+    <li>
+      <strong>Alignment masking:</strong> Highly variable positions are removed to reduce noise and improve the 
+      reliability of downstream phylogenetic inference.
+    </li>
+    <li>
+      <strong>Tree construction:</strong> A phylogenetic tree is inferred from the masked alignment with FastTree, producing an unrooted tree.
+    </li>
+    <li>
+      <strong>Midpoint rooting:</strong> The tree is rooted at the midpoint of the longest tip-to-tip distance, 
+      resulting in a <code>Rooted</code> phylogenetic tree suitable for phylogenetic diversity calculations.
+    </li>
+  </ul>
+
+  <p>
+    With the rooted tree and feature table, QIIME 2 computes a wide range of alpha and beta diversity metrics using. 
+    A commonly used workflow is the 
+    <strong>core-metrics-phylogenetic</strong> pipeline, which rarefies samples to a uniform sequencing depth, 
+    calculates diversity metrics, and generates Principal Coordinates Analysis (PCoA) plots using Emperor.
+  </p>
+
+  <p><strong>Default alpha diversity metrics include:</strong></p>
+  <ul>
+    <li><strong>Shannon’s diversity index:</strong> Quantitative measure combining richness and evenness.</li>
+    <li><strong>Observed features:</strong> Qualitative estimate of richness based on the number of ASVs.</li>
+    <li><strong>Faith’s Phylogenetic Diversity:</strong> Qualitative richness metric incorporating phylogenetic branch lengths.</li>
+    <li><strong>Evenness (Pielou’s):</strong> Measure of how evenly taxa are distributed within a sample.</li>
+  </ul>
+
+  <p>To evaluate whether sequencing depth is sufficient to capture the true diversity of the samples, QIIME 2 generates an <strong>alpha rarefaction curve</strong>. This visualization plots alpha diversity metrics—typically <em>Observed Features</em> and <em>Faith’s PD</em>—across a range of sampling depths, allowing assessment of sequencing effort and helping identify appropriate rarefaction levels. For example, the <a href="results/alpha-rarefaction.qzv_exported/rarefaction_plots.html" target="_blank">alpha rarefaction output</a> provides insight into saturation patterns and sampling adequacy.</p>
+
+  <div class="images">
+    <img src="images/alpha.png" alt="Alpha Diversity" style="width: 45%;">
   </div>
 
+  <p><strong>Default beta diversity metrics include:</strong></p>
+  <ul>
+    <li><strong>Jaccard distance:</strong> Qualitative measure of community dissimilarity.</li>
+    <li><strong>Bray–Curtis distance:</strong> Quantitative measure of abundance-based dissimilarity.</li>
+    <li><strong>Unweighted UniFrac:</strong> Qualitative phylogeny-aware dissimilarity metric.</li>
+    <li><strong>Weighted UniFrac:</strong> Quantitative phylogeny-aware metric incorporating relative abundances.</li>
+  </ul>
 
-  <div class="content" id="fase4">
-    <h2>Step 4: Quantification</h2>
-    <p>Gene-level quantification determines how many reads align to each gene using tools like featureCounts or HTSeq-count. The result is a count matrix used for comparing gene expression across conditions.</p>
-    <div class="images">
-      <img src="images/count_modes.png" alt="Conteo de genes" style="width: 45%;">
-      <img src="images/quant2.jpg" alt="Conteo de genes" style="width: 45%;">
-    </div>
+    <p>Principal Coordinates Analysis (PCoA) plots generated from these metrics—such as the <a href="results/bray_curtis_emperor.qzv_exported/index.html" target="_blank">Bray–Curtis Emperor visualization</a>—help reveal sample clustering patterns associated with experimental conditions, host factors, or environmental gradients.</p>
+
+  <div class="images">
+    <img src="images/beta.png" alt="Beta Diversity" style="width: 45%;">
   </div>
 
-  <div class="content" id="fase5">
-    <h2>Step 5: Differential expression analysis</h2>
-    <p>Statistical analysis is performed using tools like DESeq2 to identify genes with significant differences in expression between conditions (e.g., control vs treatment). Outputs include volcano plots, fold changes, and corrected p-values.</p>
-    <div class="images">
-      <img src="output/Results/deseq2_volcano_Mutant_vs_WT.png" alt="Volcano plot" style="width: auto; height: 400px;">
-      <img src="output/DataQuality/deseq2_pca_labels.png" alt="Nueva gráfica" style="width: auto; height: 400px;">
-      <img src="output/Results/deseq2_hetmap_Mutant_vs_WT.png" alt="Heatmap de expresión" style="width: auto; height: 400px;">
-      <img src="output/Results/deseq2_maplot_Mutant_vs_WT.png" alt="Maplot de expresión" style="width: auto; height: 400px;">
-    </div>
-    <p style="text-align: center;">
-      <a class="report-link" href="output/Results/deseq2_volcano_Mutant_vs_WT.html" target="_blank">
-        ➤ View interactive volcano plot report
-      </a>
-    </p>
-  </div>
-
-  <div class="content" id="fase5_1">
-    <h2>Step 5.1: Gene contribution to each PC. PCA loadings biplot.</h2>
-    <p>
-      PCA does not discard any samples or characteristics (genes). Instead, it reduces the overwhelming number of dimensions by constructing principal components (PCs).
-      PCs describe variation and account for the varied influences of the original characteristics. Such influences, or loadings, can be traced back from the PCA plot to find out what produces the differences among clusters.
-    </p>
-    <p>
-      A loading plot shows how strongly each gene influences a principal component. Additionally, the angles between the vectors tell how characteristics correlate with one another:
-    </p>
-    <ul>
-      <li>When two vectors are close, forming a small angle, the two variables they represent are positively correlated.</li>
-      <li>If they meet each other at 90°, they are not likely to be correlated.</li>
-      <li>When they diverge and form a large angle (close to 180°), they are negatively correlated.</li>
-    </ul>
-    <div class="images">
-      <img src="rlog.png" alt="PCA loadings biplot" style="width: auto; height: 400px;">
+  <p>
+    These results enable researchers to explore key biological questions, such as how species richness varies between 
+    conditions, whether microbial communities differ across environmental or clinical groups, and which ecological or 
+    host factors correlate with changes in community structure.
+  </p>
     </div>
   </div>
 
 </body>
 </html>
+
 
 
 
