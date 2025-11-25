@@ -138,8 +138,7 @@
   <h1>Basic WGS (DNAseq) Short Reads<br>offered by SABio</h1>
 
   <div class="buttons">
-    <a href="#intro">What is WGS?</a>
-    <div class="arrow">↓</div>
+    <a href="#intro">Introducction to WGS</a>
     <a href="#step1">Step 1: Data Quality Control</a>
     <div class="arrow">↓</div>
     <a href="#step2">Step 2: Trimming</a>
@@ -157,10 +156,13 @@
 
   <!-- INTRO -->
   <div class="content" id="intro">
-    <h2>What is Whole-Genome Sequencing (WGS) using Short Reads?</h2>
+  <h2>Whole-Genome Sequencing (WGS) with Short Reads</h2>
 
-    <div class="substep-card">
-      <h3>Introduction to WGS Short Reads</h3>
+  <div class="substep-card" style="display: flex; align-items: center; gap: 20px;">
+
+    <!-- TEXT LEFT -->
+    <div style="flex: 1;">
+      <h3 style="text-align:left;">Introduction to WGS Short Reads</h3>
 
       <p>
         <strong>Whole-Genome Sequencing (WGS)</strong> using short-read technology (e.g. Illumina) provides 
@@ -174,9 +176,7 @@
         reference to detect genomic differences.
       </p>
 
-      <p>
-        This allows precise identification of:
-      </p>
+      <p>This allows precise identification of:</p>
 
       <ul>
         <li><strong>SNPs</strong> – single nucleotide variants</li>
@@ -184,12 +184,17 @@
         <li><strong>Small structural changes</strong> detectable from mapping patterns</li>
       </ul>
 
-      <p>
-        WGS short-reads is widely used in microbial genomics, human genetics, clinical diagnostics, agriculture, 
-        population genomics and evolutionary studies.
-      </p>
     </div>
+
+    <!-- IMAGE RIGHT -->
+    <div style="flex: 0 0 40%; text-align:center;">
+      <img src="images/wgs_intro.png" 
+           alt="WGS illustration" 
+           style="width:100%; max-width:300px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.15);">
+    </div>
+
   </div>
+</div>
 
   <!-- STEP 1 -->
   <div class="content" id="step1">
@@ -371,3 +376,4 @@
 
 </body>
 </html>
+
