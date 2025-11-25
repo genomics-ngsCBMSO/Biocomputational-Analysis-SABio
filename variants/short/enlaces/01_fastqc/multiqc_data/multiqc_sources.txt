@@ -1,0 +1,5 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	ERR023197_2	/home/cbm/Desktop/Otros/GitHub_enlaces/variants/dia2/fastqc/ERR023197_2_fastqc.zip
+FastQC	all_sections	ERR023195_2	/home/cbm/Desktop/Otros/GitHub_enlaces/variants/dia2/fastqc/ERR023195_2_fastqc.zip
+FastQC	all_sections	ERR023195_1	/home/cbm/Desktop/Otros/GitHub_enlaces/variants/dia2/fastqc/ERR023195_1_fastqc.zip
+FastQC	all_sections	ERR023197_1	/home/cbm/Desktop/Otros/GitHub_enlaces/variants/dia2/fastqc/ERR023197_1_fastqc.zip
