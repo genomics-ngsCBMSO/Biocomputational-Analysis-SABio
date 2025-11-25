@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Emperor</title>
+    <!-- core dependencies that are otherwise included via the jupyter notebook -->
+    <script src="./vendor/js/require-2.1.22.min.js"></script>
+    <script src="./vendor/js/jquery-2.1.4.min.js"></script>
+    <meta charset="utf-8">
+
+    <script type="text/javascript">
+
+if ($("#emperor-css").length == 0){{
+    $("head").append([
+
+        '<link id="emperor-css" rel="stylesheet" type="text/css" href="./css/emperor.css">',
+        '<link rel="stylesheet" type="text/css" href="./vendor/css/jquery-ui.min.css">',
+        '<link rel="stylesheet" type="text/css" href="./vendor/css/slick.grid.min.css">',
+        '<link rel="stylesheet" type="text/css" href="./vendor/css/spectrum.min.css">',
+        '<link rel="stylesheet" type="text/css" href="./vendor/css/chosen.min.css">',
+        '<link rel="stylesheet" type="text/css" href="./vendor/css/jquery.contextMenu.min.css">'
+    ]);
+}}
+</script>
+
+
+    <style>
+      #emperor-notebook-0x1d6e0606 {
+        height:100vh !important;
+        padding: 0px !important;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='emperor-notebook-0x1d6e0606' style="position: relative; width:100%; height:500px;">
+  <div class='loading' style="position: absolute;top: 50%;left: 50%;margin-left: -229px; margin-top: -59px; z-index: 10000;height:118px;width:458px;padding:0px"><img src='./img/emperor.png' alt='Emperor resources missing. Expected them to be found in .'></div>
+</div>
+</div>
+
+<script type="text/javascript">
+// When running in the Jupyter notebook we've encountered version conflicts
+// with some dependencies. So instead of polluting the global require context,
+// we define a new context.
+var emperorRequire = require.config({
+'context': 'emperor',
+// the left side is the module name, and the right side is the path
+// relative to the baseUrl attribute, do NOT include the .js extension
+'paths': {
+  /* jQuery */
+  'jquery': './vendor/js/jquery-2.1.4.min',
+  'jqueryui': './vendor/js/jquery-ui.min',
+  'jquery_drag': './vendor/js/jquery.event.drag-2.2.min',
+
+  /* jQuery plugins */
+  'chosen': './vendor/js/chosen.jquery.min',
+  'spectrum': './vendor/js/spectrum.min',
+  'position': './vendor/js/jquery.ui.position.min',
+  'contextmenu': './vendor/js/jquery.contextMenu.min',
+
+  /* other libraries */
+  'underscore': './vendor/js/underscore-min',
+  'chroma': './vendor/js/chroma.min',
+  'filesaver': './vendor/js/FileSaver.min',
+  'blob': './vendor/js/Blob',
+  'canvastoblob': './vendor/js/canvas-toBlob',
+  'd3': './vendor/js/d3.min',
+
+  /* THREE.js and plugins */
+  'three': './vendor/js/three.min',
+  'orbitcontrols': './vendor/js/three.js-plugins/OrbitControls',
+  'projector': './vendor/js/three.js-plugins/Projector',
+  'svgrenderer': './vendor/js/three.js-plugins/SVGRenderer',
+  'canvasrenderer': './vendor/js/three.js-plugins/CanvasRenderer',
+  'selectionbox': './vendor/js/three.js-plugins/SelectionBox',
+  'selectionhelper': './vendor/js/three.js-plugins/SelectionHelper',
+
+  /* SlickGrid */
+  'slickcore': './vendor/js/slick.core.min',
+  'slickgrid': './vendor/js/slick.grid.min',
+  'slickformatters': './vendor/js/slick.editors.min',
+  'slickeditors': './vendor/js/slick.formatters.min',
+  'slickdataview': './vendor/js/slick.dataview.min',
+
+  /* Emperor's objects */
+  'util': './js/util',
+  'model': './js/model',
+  'multi-model': './js/multi-model',
+  'view': './js/view',
+  'controller': './js/controller',
+  'draw': './js/draw',
+  'scene3d': './js/sceneplotview3d',
+  'shapes': './js/shapes',
+  'animationdirector': './js/animate',
+  'trajectory': './js/trajectory',
+  'uistate': './js/ui-state',
+
+  /* controllers */
+  'abcviewcontroller': './js/abc-view-controller',
+  'viewcontroller': './js/view-controller',
+  'colorviewcontroller': './js/color-view-controller',
+  'visibilitycontroller': './js/visibility-controller',
+  'opacityviewcontroller': './js/opacity-view-controller',
+  'scaleviewcontroller': './js/scale-view-controller',
+  'shapecontroller': './js/shape-controller',
+  'axescontroller': './js/axes-controller',
+  'animationscontroller': './js/animations-controller',
+
+  /* editors */
+  'shape-editor': './js/shape-editor',
+  'color-editor': './js/color-editor',
+  'scale-editor': './js/scale-editor'
+
+},
+/*
+   Libraries that are not AMD compatible need shim to declare their
+   dependencies.
+ */
+'shim': {
+  'jquery_drag': {
+    'deps': ['jquery', 'jqueryui']
+  },
+  'chosen': {
+    'deps': ['jquery'],
+    'exports': 'jQuery.fn.chosen'
+  },
+  'contextmenu' : {
+    'deps': ['jquery', 'jqueryui', 'position']
+  },
+  'filesaver' : {
+    'deps': ['blob']
+  },
+  'canvastoblob' : {
+    'deps': ['blob']
+  },
+  'slickcore': ['jqueryui'],
+  'slickgrid': ['slickcore', 'jquery_drag', 'slickformatters', 'slickeditors',
+                'slickdataview']
+}
+});
+
+emperorRequire(
+["jquery", "model", "controller"],
+function($, model, EmperorController) {
+  var DecompositionModel = model.DecompositionModel;
+
+  var div = $('#emperor-notebook-0x1d6e0606');
+
+  var data = {"plot": {"decomposition": {"axes_names": [0, 1, 2, 3, 4], "ci": null, "coordinates": [[-0.04956249444939802, 0.05208214836053168, -0.2215500653836269, 0.18251570207865253, -0.1938951824414868], [0.1549091642415261, 0.3426317848198088, -0.30969504572450596, 0.0688451130098819, 0.03152732805531902], [-0.12835124550490876, -0.114803049466566, -0.041052569205736245, 0.0059497220889673085, 0.15235926745017814], [-0.11948960846784556, -0.10281998798769731, 0.17376140516274455, 0.03827582178193137, -0.0779131795350397], [-0.1489988006241139, -0.18869130024932712, -0.02820194583433914, -0.0909403156179644, -0.014178397758295158], [-0.1498679787269787, -0.271839578924289, 0.08569089302679443, 0.05990261363705675, -0.008657355488259404], [-0.15377819035913246, -0.2345804417169964, 0.09708725074292539, -0.00032969587313545014, -0.06056608294849972], [-0.128662308384468, -0.16057472593288882, -0.13654709360538053, -0.07959856077891465, -0.0287031323125959], [-0.14292236752381265, -0.20843789074004393, -0.017999954015702785, 0.10647135134284293, 0.0055076670833276685], [-0.15056022150627224, -0.21034461583502045, -0.030746582628862384, 0.02253204542945741, 0.00686987554810252], [-0.1336528815512681, -0.17260724300642533, -0.09666616441010796, -0.01753314100692373, 0.12287414770514841], [-0.11483187086730615, -0.14899551420936033, -0.11833198233403103, -0.1762243937211819, 0.028200939119992254], [0.08709614881906085, 0.33749692764064493, -0.03861080476545117, 0.1899183794354781, 0.13107487092747944], [0.015725555805897032, 0.15613654086241152, 0.2833272824230105, 0.07324942355936412, 0.1543228968185011], [0.04221559731439797, 0.2467216283677903, -0.054299319139207325, -0.09904211250231056, 0.0414530401719138], [-0.0010001867318222301, 0.2189694103146983, 0.12306760967110737, 0.04488900317283838, -0.15440115506908234], [-0.0138249125108181, 0.20175027151346508, 0.23670900668179448, 0.024028874121929115, -0.04222768378631723], [0.0687442400730014, 0.31573289329836873, 0.055003885146761175, -0.19704387089549713, -0.03784975739291627], [0.06681236095426087, 0.32992117132384957, 0.01442444166914272, -0.15126717513396656, -0.04595688452013533], [1.0, -0.3877484284329529, 0.024629752522671366, -0.004598784128505438, -0.009841221627334262]], "edges": [], "percents_explained": [32.8727702831273, 29.821258321418075, 10.57684267719754, 5.7622254158756565, 4.273826922405524], "sample_ids": ["F3D0", "F3D1", "F3D141", "F3D142", "F3D143", "F3D144", "F3D145", "F3D146", "F3D147", "F3D148", "F3D149", "F3D150", "F3D2", "F3D3", "F3D5", "F3D6", "F3D7", "F3D8", "F3D9", "Mock"]}, "metadata": [["F3D0", "AAAAAAA", "nan", "0", "Early"], ["F3D1", "TTTTTTC", "nan", "1", "Late"], ["F3D141", "CCCCCCC", "nan", "141", "Early"], ["F3D142", "GGGGGGG", "nan", "142", "Late"], ["F3D143", "TTTTTTT", "nan", "143", "Late"], ["F3D144", "AAAAAAT", "nan", "144", "Late"], ["F3D145", "CCCCCTT", "nan", "145", "Late"], ["F3D146", "GGGGGGT", "nan", "146", "Late"], ["F3D147", "TTTTTTA", "nan", "147", "Late"], ["F3D148", "AAAAAAC", "nan", "148", "Late"], ["F3D149", "AAAAAAG", "nan", "149", "Late"], ["F3D150", "AAAAAGG", "nan", "150", "Late"], ["F3D2", "TTTTTTG", "nan", "2", "Early"], ["F3D3", "TTTTTGA", "nan", "3", "Early"], ["F3D5", "TTTTGGG", "nan", "5", "Early"], ["F3D6", "AAAATTT", "nan", "6", "Early"], ["F3D7", "GGGGGTT", "nan", "7", "Early"], ["F3D8", "CCCCTTT", "nan", "8", "Early"], ["F3D9", "GGGAAAA", "nan", "9", "Early"], ["Mock", "GGGAATT", "nan", "NA", "NA"]], "metadata_headers": ["SampleID", "BarcodeSequence", "LinkerPrimerSequence", "dpw", "Description"], "settings": {}, "type": "scatter"}};
+
+  var plot, biplot = null, ec;
+
+  function init() {
+    // Initialize the DecompositionModel for the scatter plot, and optionally
+    // add one for the biplot arrows
+    plot = new DecompositionModel(data.plot.decomposition,
+                                  data.plot.metadata_headers,
+                                  data.plot.metadata,
+                                  data.plot.type);
+
+    if (data.biplot) {
+      biplot = new DecompositionModel(data.biplot.decomposition,
+                                      data.biplot.metadata_headers,
+                                      data.biplot.metadata,
+                                      data.biplot.type);
+    }
+
+    ec = new EmperorController(plot, biplot, "emperor-notebook-0x1d6e0606");
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    ec.render();
+  }
+  $(window).resize(function() {
+    ec.resize(div.innerWidth(), div.innerHeight());
+  });
+
+  $(function(){
+    init();
+    animate();
+
+    ec.ready = function () {
+      // any other code that needs to be executed when emperor is loaded should
+      // go here
+      ec.loadConfig(data.plot.settings);
+
+      // sets up generic callbacks for 3rd party consumers
+      var plotView = ec.sceneViews[0];
+      plotView.on('click', function(sampleName){
+        /*__click_callback__*/
+      });
+      plotView.on('dblclick', function(sampleName){
+        /*__dblclick_callback__*/
+      });
+      plotView.on('select', function(samples, view){
+        /*__select_callback__*/
+      });
+
+      /*__custom_on_ready_code__*/
+    }
+  });
+
+}); // END REQUIRE.JS block
+</script>
+  </body>
+</html>
