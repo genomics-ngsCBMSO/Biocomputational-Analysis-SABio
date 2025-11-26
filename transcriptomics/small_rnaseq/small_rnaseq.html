@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Small RNAseq Analysis - Fancy Version</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .buttons a {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin: 5px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .buttons a:hover {
+      background-color: #0047b3;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .content ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    a.report-link {
+      display: inline-block;
+      text-align: center;
+      margin: 20px auto;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1> Small RNAseq analysis offered by SABio</h1>
+
+  <div class="buttons">
+    <a href="#fase1">Step 1: Data quality control</a>
+    <div class="arrow">↓</div>
+    <a href="#fase2">Step 2: Trimming</a>
+    <div class="arrow">↓</div>
+    <a href="#fase3">Step 3: Alignment</a>
+    <div class="arrow">↓</div>
+    <a href="#fase4">Step 4: Annotation and Quantification</a>
+    <div class="arrow">↓</div>
+    <a href="#fase5">Step 5: Differential Expression analysis </a>
+    <div class="arrow">↓</div>
+    <a href="#fase6">Step 6. Novel smallRNAs analysis</a>
+  </div>
+
+  <div class="content" id="fase1">
+    <h2>Step 1: Data Quality Control</h2>
+    <p>Raw sequencing data (FASTQ files) is assessed for quality using tools like FastQC and MultiQC. This step detects issues such as adapter contamination, low-quality reads, or GC bias before continuing with further analysis.</p>
+    <div class="images">
+      <img src="fastqc_mal.png" alt="Quality control" style="width: 45%;">
+      <img src="fastqc_bien.png" alt="Quality control bad" style="width: 45%;">
+    </div>
+    <p> </p>
+    <p> Small RNAseq such as microRNAseq may have an extra quality analysis step using specialized software like mirtrace. Each sample is characterized by profiling sequencing quality, read length, sequencing depth and miRNA complexity and also the amounts of miRNAs versus undesirable sequences</p>
+    <div class="images">
+      <img src="mirtrace-qc-plot.png" alt="Quality mirna" style="width: 45%">
+      <img src="mirtrace-qc-plot_legend.png" alt="Quality mirna" style="width: auto; height: 200px ">
+    </div>
+  </div>
+
+  <div class="content" id="fase2">
+    <h2>Step 2: Trimming</h2>
+    <p>Trimming removes adapter sequences and low-quality bases from reads. Tools like Trimmomatic or fastp ensure that only high-quality sequences are kept, improving mapping efficiency and accuracy.</p>
+    <div class="images">
+      <img src="table_trim.png" alt="Trimming" style="width: 55%;">
+      <img src="fastp_filtered_reads_plot.png" alt="Lecturas limpias" style="width: 55%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase3">
+    <h2>Step 3: Alignment </h2>
+    <p> Small RNA alignment presents unique computational challenges due to short read lengths and high sequence similarity between related molecules.</p>
+    <p> This step can be performed following different alignment strategy options based on the specific characteristics of the project. </p>
+       <ul>
+          <li> Direct genomic alignment with specialized parameters </li>
+          <p> Alignment parameter optimization proves critical for small RNA analysis. It includes controlling mismatch tolerance, multi-mapping read handling and alignment quality thresholds. </p>
+              <div class="images">
+               <img src="igv_smallrna.png" alt="igv" style="width: auto; height: 400px;">
+             </div>
+          <li>Alignment against annotated small RNAs databases </li>
+          <p> These mapping approaches improve sensitivity for known small RNAs however they require additional steps to discover novel species. There are multiple databases, for example miRbase is often used for micro RNAs detection. </p>
+              <div class="images">
+               <img src="mirbase-logo_new.png" alt="mirbase" style="width: 600px; height: 300px;">
+             </div>
+        </ul>
+    </p>
+  </div>
+
+  <div class="content" id="fase4">
+    <h2>Step 4: Annotation and Quantification </h2>
+    <p>Small RNAs are annotated against specific public databases. For example, miRBase can be used as microRNA annotation and other pecialized databases for other small RNA classes. </p>
+    <p> Software tools such as mirGe will provide the annotation barplots as well as the count matrix of all the samples. </p>
+    <div class="images">
+      <img src="mirGe_readdistribution.png" alt="Conteo de genes" style="width: 500px;">
+    </div>
+  </div>
+
+  <div class="content" id="fase5">
+    <h2> Step 5: Differential Expression analysis </h2>
+    <p>Statistical analysis is performed same as a normal RNAseq analysis using tools like DESeq2 to identify genes with significant differences in expression between conditions (e.g., control vs treatment). Outputs include volcano plots, fold changes, and corrected p-values.</p>
+    <div class="images">
+      <img src="output/Results/deseq2_volcano_Mutant_vs_WT.png" alt="Volcano plot" style="width: auto; height: 400px;">
+      <img src="output/DataQuality/deseq2_pca_labels.png" alt="Nueva gráfica" style="width: auto; height: 400px;">
+      <img src="output/Results/deseq2_hetmap_Mutant_vs_WT.png" alt="Heatmap de expresión" style="width: auto; height: 400px;">
+      <img src="output/Results/deseq2_maplot_Mutant_vs_WT.png" alt="Maplot de expresión" style="width: auto; height: 400px;">
+    </div>
+  </div>
+
+  <div class="content" id="fase6">
+    <h2>Step 6. Novel smallRNAs analysis </h2>
+    <p> Prediction of novel for example miRNAs is possible based on features such as alignment, secondary structure prediction, energy scores, and homology to other species. Tools like mirGe or mirDeep2 allow to do this type of predictions. </p>
+    <div class="images">
+      <img src="nmiR.webp" alt="Annotation" style="width: auto; height: 400px;">
+    </div>
+  </div>
+
+</body>
+</html>
