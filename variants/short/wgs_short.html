@@ -41,6 +41,10 @@
       margin-bottom: 10px;
     }
 
+    ul li {
+      margin-bottom: 15px; /* Espacio extra entre elementos */
+    }
+
     .buttons {
       display: flex;
       flex-direction: column;
@@ -110,10 +114,78 @@
       height: auto;
     }
 
+    a.report-link {
+      display: inline-block;
+      text-align: center;
+      margin: 20px auto;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .bigstep {
+      background-color: var(--primary);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      font-size: 1.2rem;
+      padding: 20px;
+      margin: 10px 0;
+      width: 80%;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    .bigstep-link {
+      display: inline-block;   /* para que no ocupe todo el ancho */
+      font-weight: bold;
+      margin-bottom: 15px;
+      border: 3px solid #0047b3;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      transition: background 0.3s ease;
+      background: transparent;  /* <- transparente */
+    }
+
+    .bigstep-link:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .subbuttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;  /* centra horizontalmente */
+    }
+
+    .subbuttons a {
+      background: white;
+      color: var(--primary);
+      font-size: 1rem;
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+
+      width: 90%;       /* todos con mismo ancho */
+      max-width: 300px; /* límite para que no sean demasiado grandes */
+    }
+
+
+    .subbuttons a:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-2px);
+    }
+
     .substep-card {
       background: white;
       border: 2px solid var(--primary);
-      border-radius: 30px;
+      border-radius: 15px;
       padding: 20px;
       margin: 20px 0;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -129,19 +201,8 @@
       color: var(--primary);
       text-align: center;
     }
-
-    .section-separator {
-      text-align: center;
-      font-size: 18px;
-      color: #888;
-      margin: 15px 0 20px 0;
-      letter-spacing: 8px;
-    }
-
-
   </style>
 </head>
-
 <body>
 
   <h1>Basic WGS (DNAseq) Short Reads<br>offered by SABio</h1>
@@ -402,6 +463,7 @@
 
 </body>
 </html>
+
 
 
 
