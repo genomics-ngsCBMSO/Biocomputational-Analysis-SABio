@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Small RNAseq Functional Enrichment Analysis offer by SABio</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-top: 40px;
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    summary:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Basic Pathway Enrichment of Small RNA-Seq</h1>
+
+  <div class="content">
+    <details open>
+      <summary><h2>miRNA Target Identification</h2></summary>
+      <p>
+        After identifying differentially expressed miRNAs, the next step is to determine their putative
+        target genes. Databases such as <strong>TarBase/ENCORI</strong> provide curated miRNA–mRNA
+        interactions and assign confidence scores based on:
+      </p>
+
+      <ul>
+        <li>The number of complementary nucleotides between the miRNA and the target mRNA.</li>
+        <li>Evolutionary conservation of the binding site across species.</li>
+        <li>Hybridization energy of the miRNA–mRNA duplex.</li>
+        <li>Available experimental evidence (CLIP-seq, degradome data, validated interactions).</li>
+      </ul>
+
+      <p>
+        This step helps prioritize high-confidence targets before performing functional enrichment,
+        ensuring that downstream analyses reflect biologically meaningful miRNA-mediated regulation.
+      </p>
+
+      <div class="images">
+        <img src="summary_mirna.png" alt="summary" style="height: 30%; width: 60%">        
+        <img src="encori_data_filter.png" alt="tarbase" style="height: 30%; width: 60%">
+      </div>
+    </details>
+  </div>
+
+  <div class="content">
+    <details open>
+      <summary><h2>GSEA: Gene Set Enrichment Analysis</h2></summary>
+
+      <p>
+        GSEA evaluates whether a predefined set of genes shows significant, coordinated differences
+        between two biological conditions. In this study, gene sets from 
+        <strong>GO Biological Process</strong> and <strong>KEGG Pathways</strong> were used, implemented
+        via the <strong>clusterProfiler</strong> and <strong>enrichplot</strong> R packages.
+      </p>
+
+      <p>
+        The main metrics reported by GSEA include:
+      </p>
+      <ul>
+        <li><strong>Enrichment Score (ES):</strong> reflects overrepresentation across the ranked list.</li>
+        <li><strong>Normalized Enrichment Score (NES):</strong> adjusts ES for gene set size.</li>
+        <li><strong>p-value / FDR:</strong> estimates the statistical significance of enrichment.</li>
+      </ul>
+
+      <h3>a) Dotplot</h3>
+      <p>
+        The dotplot summarizes enriched terms using the <strong>Gene Ratio</strong>, <strong>NES</strong>,
+        and statistical significance. A <strong>NES &gt; 0</strong> indicates pathway activation, while
+        <strong>NES &lt; 0</strong> indicates suppression.
+      </p>
+      <div class="images">
+        <img src="GO_Mutant_WT_dotplot.png" alt="Dotplot GSEA" style="width: 60%;">
+      </div>
+
+      <h3>b) Gene–concept network</h3>
+      <p>
+        This network visualization links genes to their enriched pathways. Node size represents gene set
+        size, while node color may reflect <strong>log2 fold-changes</strong>, helping identify central 
+        regulators shared across multiple terms.
+      </p>
+      <div class="images">
+        <img src="GO_Mutant_WT_gene_concept_net_4.png" alt="Gene-concept GSEA" style="width: 45%;">
+        <img src="Mutant_vs_WT_gene_concept_net.jpeg" alt="Gene-concept GSEA" style="width: 45%;">
+      </div>
+
+      <h3>c) Enrichment map</h3>
+      <p>
+        The enrichment map clusters related terms based on gene overlap. Node size represents the number
+        of contributing genes, while color indicates the enrichment direction.
+      </p>
+      <div class="images">
+        <img src="GO_Mutant_vs_WT_enrich_map.png" alt="Enrichment Map GSEA" style="width: 60%;">
+      </div>
+
+      <h3>d) Ridgeplot</h3>
+      <p>
+        Ridgeplots display the distribution of <strong>fold changes</strong> for genes within each 
+        enriched pathway, providing a detailed look at regulatory patterns inside individual gene sets.
+      </p>
+      <div class="images">
+        <img src="GO_Mutant_vs_WT_ridge.png" alt="Ridgeplot GSEA" style="width: 60%;">
+      </div>
+
+      <h3>e) UpSet plot</h3>
+      <p>
+        The UpSet plot visualizes intersections between gene sets, highlighting shared genes,
+        co-regulated pathways, and unique terms.
+      </p>
+      <div class="images">
+        <img src="Mutant_vs_WT_upset_20first.jpeg" alt="UpSet Plot GSEA" style="width: 60%;">
+      </div>
+
+      <h3>f) GSEA Plot (Enrichment Curve)</h3>
+      <p>
+        The classical GSEA enrichment curve shows the running enrichment score as the algorithm walks
+        down the ranked gene list. Peaks represent maximal enrichment, while vertical bars indicate the
+        positions of individual genes from the set.
+      </p>
+      <div class="images">
+        <img src="organellar_ribosome_Mutant_WT.png" alt="GSEA Curve Plot" style="width: 45%;">
+        <img src="chromosome_segregation_Mutant_WT.png" alt="GSEA Curve Plot" style="width: 45%;">
+      </div>
+
+    </details>
+  </div>
+
+  <div class="content">
+    <details>
+      <summary><h2>ORA: Over-representation Analysis</h2></summary>
+
+      <p>
+        ORA evaluates whether specific GO terms are statistically overrepresented in a list of selected
+        genes. Here, genes with <strong>adjusted p-value &lt; 0.05</strong> were used (no fold-change
+        cutoff), and results were visualized using the <strong>enrichplot</strong> package.
+      </p>
+
+      <h3>Dotplot</h3>
+      <p>
+        Shows the most significantly enriched GO terms, ranked by gene ratio and adjusted p-values,
+        providing an intuitive summary of enrichment strength and significance.
+      </p>
+      <div class="images">
+        <img src="enrichGO_dotplot.png" alt="Dotplot ORA" style="width: 60%;">
+      </div>
+
+      <h3>Barplot</h3>
+      <p>
+        Barplots display gene counts or ratios for each enriched GO term, offering a clear and accessible
+        visualization of the most prominent categories.
+      </p>
+      <div class="images">
+        <img src="enrichGO_barplot_geneRatio.png" alt="Barplot ORA" style="width: 60%;">
+      </div>
+
+      <h3>Enrichment Map</h3>
+      <p>
+        Similar to the GSEA version, this map clusters enriched GO terms based on semantic similarity,
+        helping identify shared biological functions or coordinated processes.
+      </p>
+      <div class="images">
+        <img src="emapplot_GO.png" alt="Enrichment Map ORA" style="width: 80%;">
+      </div>
+
+      <h3>Gene–concept network</h3>
+      <p>
+        This network links enriched GO terms with their contributing genes. It helps identify central,
+        multi-functional genes involved in several biological pathways.
+      </p>
+      <div class="images">
+        <img src="enrichGO_cnetplot.png" alt="Gene-concept ORA" style="width: 80%;">
+      </div>
+
+    </details>
+  </div>
+
+</body>
+</html>
