@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SABio - Genome Assembly</title>
+
+<style>
+  :root {
+    --primary: #6a00ff;
+    --accent: #00c4a7;
+    --background: #f4f6f9;
+    --card-bg: #ffffffdd;
+    --text-color: #1e1e2f;
+    --shadow: 0 12px 30px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background: linear-gradient(to right, #eef2f3, #f5f7fa);
+    color: var(--text-color);
+    scroll-behavior: smooth;
+    text-align: justify;
+  }
+
+  h1, h2 { font-weight: 700; text-align: center; }
+  h1 { font-size: 2.6rem; color: var(--primary); margin-top: 40px; }
+  h2 { color: var(--accent); margin-top: 0; }
+
+  .buttons {
+    display: flex; flex-direction: column; align-items: center;
+    margin: 25px 0; gap: 6px;
+  }
+
+  .buttons a {
+    background: var(--primary); color: white; text-decoration: none;
+    padding: 12px 24px; border-radius: 30px; width: 80%; max-width: 350px;
+    box-shadow: var(--shadow); font-weight: 600; transition: 0.3s ease;
+    text-align: center; font-size: 1rem;
+  }
+
+  .buttons a:hover {
+    background: #4000b3; transform: translateY(-3px);
+  }
+
+  .arrow { color: var(--primary); font-size: 22px; text-align:center; }
+
+  .content {
+    background: var(--card-bg); max-width: 1000px;
+    margin: 40px auto; padding: 30px; border-radius: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .section-separator { text-align:center; margin: 15px 0; color:#777; letter-spacing:6px; }
+
+  .images img {
+    border-radius: 12px; box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .substep-card {
+    border: 2px solid var(--primary); border-radius: 22px;
+    padding: 20px; margin-top: 25px; background:white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .substep-card h3 { text-align:center; color:var(--primary); }
+
+</style>
+</head>
+
+<body>
+<h1>De novo Genome Assembly<br>offered by SABio</h1>
+
+<div class="buttons">
+  <a href="#intro">Introduction</a>
+  <div class="section-separator">● ● ●</div>
+
+  <a href="#step1">Step 1: Data Quality Control</a>
+  <div class="arrow">↓</div>
+
+  <a href="#step2">Step 2: Trimming</a>
+  <div class="arrow">↓</div>
+
+  <a href="#step3">Step 3: De novo Sequence Assembly</a>
+  <div class="arrow">↓</div>
+
+  <a href="#step4">Step 4: Assembly Validation & Assessment</a>
+</div>
+
+
+<!-- ░░ INTRODUCTION ░░ -->
+<div class="content" id="intro">
+<h2>What is Genome Assembly?</h2>
+
+<p>
+Genome assembly is the process of reconstructing the complete DNA sequence of an organism using millions of short or long sequencing reads. 
+Because sequencing technologies do not produce full chromosomes in one piece, the genome must be computationally rebuilt like a puzzle.
+</p>
+
+<p><strong>Assembly Approaches:</strong></p>
+
+<ul>
+  <li><strong>Reference-guided (Resequencing)</strong>: reads are aligned to an existing genome. Useful when a high-quality reference is available.</li>
+  <li><strong>De novo Assembly</strong>: the genome is reconstructed exclusively from sequencing data, <strong>without using any reference</strong>. This is analogous to assembling a puzzle without the picture on the box.</li>
+</ul>
+
+<h3>Why perform De novo Assembly?</h3>
+<ul>
+  <li>No reference genome exists for the organism of interest.</li>
+  <li>Sequencing technology improves and allows better reconstructions.</li>
+  <li>Reference bias can hide true genetic variants, especially structural changes relevant to the study.</li>
+</ul>
+
+</div>
+
+
+<!-- ░░ STEP 1 ░░ -->
+<div class="content" id="step1">
+<h2>Step 1: Data Quality Control</h2>
+<p>
+Raw sequencing reads are first evaluated to assess quality, duplication levels, presence of adapters and overrepresented sequences. Tools such as <strong>FastQC</strong> and <strong>MultiQC</strong> provide interactive reports to ensure the dataset is suitable for assembly.
+</p>
+</div>
+
+
+<!-- ░░ STEP 2 ░░ -->
+<div class="content" id="step2">
+<h2>Step 2: Trimming</h2>
+<p>
+Low-quality regions and sequencing adapters are removed using tools such as <strong>Trimmomatic</strong> or <strong>fastp</strong>. Clean high-quality reads are crucial for successful assembly and contig accuracy.
+</p>
+</div>
+
+
+<!-- ░░ STEP 3 ░░ -->
+<div class="content" id="step3">
+<h2>Step 3: De novo Assembly</h2>
+
+<p>
+Reads are assembled into contigs based on sequence overlap or de Bruijn graph models. The goal is to reconstruct the genome with the highest continuity and lowest fragmentation.
+</p>
+
+<div class="substep-card" id="step3_1">
+<h3>3.1 Genome Assembly</h3>
+<p>
+Assembly tools vary depending on sequencing technology:
+</p>
+<ul>
+  <li><strong>SPAdes</strong> — standard for Illumina short reads</li>
+  <li><strong>Unicycler</strong> — hybrid assembler (short + long reads, ideal for bacterial genomes)</li>
+  <li><strong>Flye</strong> — optimized for ONT or PacBio long reads</li>
+</ul>
+<p>
+These tools build contigs by identifying overlaps and resolving genomic structure, repeats, and coverage patterns.
+</p>
+</div>
+
+<div class="substep-card" id="step3_2">
+<h3>3.2 Gap Closing</h3>
+<p>
+If the assembly contains gaps, software such as <strong>GapCloser</strong> or <strong>GapFiller</strong> uses paired reads to bridge contigs and improve continuity.
+</p>
+</div>
+
+<div class="substep-card" id="step3_3">
+<h3>3.3 Assembly Polishing</h3>
+<p>
+Assemblies derived from long reads may contain indel errors. Tools like <strong>Aramis</strong>, <strong>Pilon</strong>, or <strong>Racon</strong> use high-accuracy short reads to correct base-level errors and produce a refined genome.
+</p>
+</div>
+
+</div>
+
+
+<!-- ░░ STEP 4 ░░ -->
+<div class="content" id="step4">
+<h2>Step 4: Assembly Validation and Assessment</h2>
+
+<p>
+A genome assembly must be evaluated to determine its quality, accuracy, and completeness. We assess both structural integrity and biological representation.
+</p>
+
+<ul>
+  <li><strong>QUAST</strong> — measures assembly metrics (N50, contigs, genome size, GC %).</li>
+  <li><strong>Coverage visualization</strong> — ensures uniform sequencing depth.</li>
+  <li><strong>Dot plots</strong> — detect structural rearrangements; visualized using <strong>Gepard</strong>.</li>
+  <li><strong>Annotation completeness</strong> — evaluated with <strong>BUSCO</strong>, which searches for conserved orthologous genes.</li>
+</ul>
+
+<p>
+These steps confirm whether the assembly is reliable for downstream analyses such as comparative genomics, variant calling, or gene annotation.
+</p>
+
+</div>
+
+</body>
+</html>
