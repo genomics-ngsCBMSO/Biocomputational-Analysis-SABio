@@ -1,0 +1,3 @@
+Module	Section	Sample Name	Source
+Samtools	stats	sensitive_sorted	/home/cbm/Desktop/Otros/GitHub_enlaces/variants/dia2/bwa/sensitive_sorted.stats
+Samtools	stats	resistant_sorted	/home/cbm/Desktop/Otros/GitHub_enlaces/variants/dia2/bwa/resistant_sorted.stats

@@ -1,0 +1,3 @@
+Sample	Samtools_mqc-generalstats-samtools-error_rate	Samtools_mqc-generalstats-samtools-non_primary_alignments	Samtools_mqc-generalstats-samtools-reads_mapped	Samtools_mqc-generalstats-samtools-reads_mapped_percent	Samtools_mqc-generalstats-samtools-reads_properly_paired_percent	Samtools_mqc-generalstats-samtools-reads_MQ0_percent	Samtools_mqc-generalstats-samtools-raw_total_sequences
+resistant_sorted	0.01245052	0.0	3945123.0	94.90883502736513	90.29799723341553	1.594394659289108	4156750.0
+sensitive_sorted	0.01071896	0.0	5895251.0	95.68740070521613	90.30866678309897	1.546369162667823	6160948.0
