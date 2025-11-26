@@ -130,6 +130,15 @@
       text-align: center;
     }
 
+    .section-separator {
+      text-align: center;
+      font-size: 18px;
+      color: #888;
+      margin: 15px 0 20px 0;
+      letter-spacing: 8px;
+    }
+
+
   </style>
 </head>
 
@@ -137,22 +146,41 @@
 
   <h1>Basic WGS (DNAseq) Short Reads<br>offered by SABio</h1>
 
-  <div class="buttons">
-    <a href="#intro">Introducction to WGS</a>
-    <a href="#step1">Step 1: Data Quality Control</a>
-    <div class="arrow">↓</div>
-    <a href="#step2">Step 2: Trimming</a>
-    <div class="arrow">↓</div>
-    <a href="#step3">Step 3: Alignment (BWA-MEM)</a>
-    <div class="arrow">↓</div>
-    <a href="#step4">Step 4: Variant Calling (GATK)</a>
-    <div class="arrow">↓</div>
-    <a href="#step5">Step 5: Variant Filtering</a>
-    <div class="arrow">↓</div>
-    <a href="#step6">Step 6: Variant Annotation (SnpEff)</a>
-    <div class="arrow">↓</div>
-    <a href="#step7">Step 7: Coverage & IGV Visualization</a>
+<div class="buttons">
+
+  <!-- INTRO -->
+  <a href="#intro">Introduction to WGS</a>
+
+  <!-- VISUAL SEPARATOR -->
+  <div class="section-separator">● ● ●</div>
+
+  <!-- STEPS -->
+  <a href="#step1">Step 1: Data Quality Control</a>
+  <div class="arrow">↓</div>
+
+  <a href="#step2">Step 2: Trimming</a>
+  <div class="arrow">↓</div>
+
+  <a href="#step3">Step 3: Alignment (BWA-MEM)</a>
+  <div class="arrow">↓</div>
+
+  <a href="#step4">Step 4: Variant Analysis Pipeline</a>
+
+  <!-- SUB-STEPS OF STEP 4 -->
+  <div class="subbuttons">
+    <a href="#fase4_1">Step 4.1<br>Data Preprocessing (Picard)</a>
+    <a href="#fase4_2">Step 4.2<br>Variant Calling (GATK)</a>
+    <a href="#fase4_3">Step 4.3<br>Variant Filtering (VCFfilter)</a>
   </div>
+
+  <div class="arrow">↓</div>
+
+  <a href="#step6">Step 5: Variant Annotation (SnpEff)</a>
+  <div class="arrow">↓</div>
+
+  <a href="#step7">Step 6: Coverage Plots & IGV Visualization</a>
+</div>
+
 
   <!-- INTRO -->
 <div class="content" id="intro">
@@ -259,118 +287,121 @@
   </div>
 
   <!-- STEP 4 -->
-  <div class="content" id="step4">
-    <h2>Step 4: Variant Calling with GATK</h2>
+<div class="content" id="step4">
+  <h2>Step 4: Variant Analysis Pipeline</h2>
+  <p>
+    Once the sequencing reads are aligned to the reference genome, the next phase focuses on detecting
+    genetic differences. This step involves preparing the aligned data, identifying variants, and filtering
+    those variants to ensure high confidence results.
+  </p>
+</div>
 
-    <p>
-      Variant calling is performed using <strong>GATK HaplotypeCaller</strong>, which reconstructs local 
-      haplotypes and identifies:
-    </p>
+<!-- STEP 4.1 -->
+<div class="substep-card" id="fase4_1">
+  <h3>Step 4.1: Data Preprocessing with Picard</h3>
+  <p>
+    Before performing variant calling, aligned BAM files must be standardized and cleaned. This is achieved
+    using <strong>Picard</strong>, a toolkit developed by the Broad Institute designed to manipulate and optimize
+    SAM/BAM/CRAM file formats.
+  </p>
 
-    <ul>
-      <li>SNPs</li>
-      <li>Small INDELs (&lt;50 bp)</li>
-    </ul>
+  <p>Picard tools allow us to:</p>
+  <ul>
+    <li>Remove PCR duplicates using <strong>MarkDuplicates</strong></li>
+    <li>Fix read groups and metadata inconsistencies</li>
+    <li>Sort and index BAM files for efficient processing</li>
+  </ul>
 
-    <p>
-      The output is a high-confidence <strong>VCF</strong> file containing all detected genomic variants.
-    </p>
+  <p>
+    These preprocessing steps are crucial because duplicate reads and malformed metadata can introduce
+    <strong>false positive variants</strong>. By cleaning the dataset, we ensure that downstream tools such as
+    GATK operate on accurate, well-formatted input data.
+  </p>
+</div>
 
-    <div class="images">
-      <img src="images/gatk.png" style="width:60%;">
-    </div>
+<!-- STEP 4.2 -->
+<div class="substep-card" id="fase4_2">
+  <h3>Step 4.2: Variant Calling with GATK</h3>
+  <p>
+    Variant discovery is performed using <strong>GATK (Genome Analysis Toolkit)</strong>, the gold-standard framework
+    for identifying SNPs and INDELs in next-generation sequencing data.
+  </p>
 
-    <p style="text-align:center;">
-      <a href="reports/raw_variants.vcf" target="_blank">Download Raw Variant VCF</a>
-    </p>
-  </div>
+  <p>GATK provides:</p>
+  <ul>
+    <li>Accurate detection of <strong>single nucleotide polymorphisms (SNPs)</strong></li>
+    <li>Identification of <strong>insertions and deletions (INDELs)</strong></li>
+    <li>A probabilistic model (<strong>HaplotypeCaller</strong>) designed to distinguish true mutations from sequencing noise</li>
+  </ul>
 
-  <!-- STEP 5 -->
-  <div class="content" id="step5">
-    <h2>Step 5: Variant Filtering</h2>
+  <p>
+    GATK is widely adopted by genomic research consortia due to its reproducibility, scalability, and
+    sophisticated error-modeling algorithms, making it ideal for high-throughput DNA variant analysis.
+  </p>
+</div>
 
-    <p>
-      Raw variants are filtered using <strong>VCFfilter</strong> to retain only high-quality calls meeting 
-      specific thresholds, such as:
-    </p>
+<!-- STEP 4.3 -->
+<div class="substep-card" id="fase4_3">
+  <h3>Step 4.3: Variant Filtering</h3>
+  <p>
+    The raw variant file generated by GATK may still contain sequencing artifacts. To ensure reliability,
+    we apply filtering criteria to retain only variants passing specific thresholds, such as read depth,
+    genotype quality, and allele frequency.
+  </p>
 
-    <ul>
-      <li>Minimum quality (QUAL)</li>
-      <li>Minimum read depth (DP)</li>
-      <li>Allelic balance for heterozygous calls</li>
-    </ul>
+  <p>
+    This step reduces false positives and results in a high-confidence VCF file suitable for downstream
+    interpretation and biological analysis.
+  </p>
+</div>
 
-    <p>
-      This step reduces false positives and ensures a reliable final variant set.
-    </p>
+<!-- STEP 5 -->
+<div class="content" id="step5">
+  <h2>Step 5: Variant Annotation with SnpEff</h2>
+  <p>
+    Once high-confidence variants are obtained, they must be biologically interpreted. This is done using
+    <strong>SnpEff</strong>, a specialized annotation tool that predicts the functional impact of each variant
+    based on genomic context.
+  </p>
 
-    <p style="text-align:center;">
-      <a href="reports/filtered_variants.vcf" target="_blank">Download Filtered VCF</a>
-    </p>
-  </div>
+  <p>SnpEff allows us to:</p>
+  <ul>
+    <li>Determine whether a variant lies in a gene, exon, intron, UTR, or intergenic region</li>
+    <li>Infer the consequence of nucleotide changes (missense, synonymous, frameshift, stop gained, etc.)</li>
+    <li>Prioritize variants with potential phenotypic relevance</li>
+  </ul>
 
-  <!-- STEP 6 -->
-  <div class="content" id="step6">
-    <h2>Step 6: Variant Annotation with SnpEff</h2>
+  <p>
+    At the end of this step, the VCF file becomes a biologically meaningful dataset, enabling hypotheses
+    about gene function, phenotype association, and evolutionary relevance.
+  </p>
+</div>
 
-    <p>
-      Variants are annotated using <strong>SnpEff</strong>, which predicts their biological effect by 
-      overlaying them onto genomic features (genes, CDS, exons, UTRs, etc.).
-    </p>
+<!-- STEP 6 -->
+<div class="content" id="step6">
+  <h2>Step 6: Coverage Analysis & IGV Visualization</h2>
+  <p>
+    Sequencing coverage provides insight into how uniformly the genome has been sequenced. Insufficient or
+    uneven coverage can lead to missing variants or false positives.
+  </p>
 
-    <p>SnpEff classifies variants as:</p>
-    <ul>
-      <li><strong>High impact</strong> (loss-of-function, frameshift…)</li>
-      <li><strong>Moderate impact</strong> (missense…)</li>
-      <li><strong>Low impact</strong> (synonymous…)</li>
-      <li><strong>Modifiers</strong> (intergenic, upstream, downstream…)</li>
-    </ul>
+  <p>
+    We generate coverage plots to assess read depth across the genome and verify the quality of sequencing.
+    Finally, we visualize both coverage and annotated variants using <strong>IGV (Integrative Genomics Viewer)</strong>,
+    an interactive genome browser that allows manual inspection of genomic loci, read alignments, and variant
+    positions.
+  </p>
 
-    <div class="images">
-      <img src="images/snpeff.png" style="width:50%;">
-    </div>
+  <p>
+    This visual confirmation step is essential for validating complex variants and ensuring that the computational
+    predictions align with the raw sequencing evidence.
+  </p>
+</div>
 
-    <p style="text-align:center;">
-      <a href="reports/snpeff_annotation.html" target="_blank">View Annotation Report</a>
-    </p>
-  </div>
-
-  <!-- STEP 7 -->
-  <div class="content" id="step7">
-    <h2>Step 7: Coverage & IGV Visualization</h2>
-
-    <p>
-      Coverage depth is computed across the genome to evaluate sequencing uniformity and detect low-depth regions. 
-      These metrics are shown in <strong>coverage plots</strong> that help assess data quality.
-    </p>
-
-    <div class="images">
-      <img src="images/coverage_plot.png" style="width:60%;">
-    </div>
-
-    <p>
-      Finally, variants and alignments are visualized in <strong>IGV (Integrative Genomics Viewer)</strong>, 
-      allowing inspection of:
-    </p>
-
-    <ul>
-      <li>Read support for each variant</li>
-      <li>Local coverage patterns</li>
-      <li>Potential mapping issues</li>
-      <li>Complex regions</li>
-    </ul>
-
-    <div class="images">
-      <img src="images/igv.png" style="width:60%;">
-    </div>
-
-    <p style="text-align:center;">
-      <a href="reports/igv_session.xml" target="_blank">Download IGV Session</a>
-    </p>
-  </div>
 
 </body>
 </html>
+
 
 
 
