@@ -56,7 +56,7 @@
 </head>
 <body>
 
-<h1>Applications overvie</h1>
+<h1>Applications overview</h1>
 
 <details open>
   <summary>Transcriptomic applications</summary>
