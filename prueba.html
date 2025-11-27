@@ -17,26 +17,36 @@
   /* Header */
 header {
   display: flex;
-  align-items: stretch; /* asegura altura completa */
-  justify-content: space-between;
+  align-items: stretch;
   background: linear-gradient(90deg, #2780F5, #27D6F5);
-  padding: 0 20px 0 0; /* sin padding a la izquierda */
+  padding: 0;
   color: #fff;
-  height: 120px; /* altura del header: ajustable */
+  height: 120px; /* ajustable */
 }
 
-  .header-center {
+.header-left img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.header-center {
+  flex: 1; /* toma todo el espacio central */
+  display: flex;
+  justify-content: center; /* centra horizontalmente */
+  align-items: center;     /* centra verticalmente */
+}
+
+.header-right {
   display: flex;
   align-items: center; /* centra verticalmente */
-  gap: 20px; /* separación entre texto e imagen derecha */
+  padding-right: 20px;
 }
 
-  header img:first-child {
-  height: 100%;       /* ocupa toda la altura */
-  object-fit: cover;  /* rellena sin deformarse */
-  margin: 0;
-  padding: 0;
-  border-radius: 0;
+.header-right img {
+  height: 70px; /* ajusta si quieres */
+  object-fit: contain;
+}
+radius: 0;
 }
 
   header h1 {
@@ -161,6 +171,20 @@ header {
   <div class="header-center">
   <h1>SABio Services</h1>
   <img src="images/logo_CBM.png" alt="CBM Logo" style="height:60px;">
+  </div>
+</header>
+
+<header>
+  <div class="header-left">
+     <img src="images/logo_sabio.png" alt="SABio Logo">
+  </div>
+
+  <div class="header-center">
+    <h1>SABio Services</h1>
+  </div>
+
+  <div class="header-right">
+    <img src="images/logo_CBM.png" alt="CBM Logo">
   </div>
 </header>
 
