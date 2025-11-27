@@ -15,19 +15,28 @@
   }
 
   /* Header */
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(90deg, #2780F5, #27D6F5);
-    padding: 20px 20px;
-    color: #fff;
-  }
+header {
+  display: flex;
+  align-items: stretch; /* <- importante */
+  justify-content: space-between;
+  background: linear-gradient(90deg, #2780F5, #27D6F5);
+  padding: 0 30px 0 0; /* sin padding a la izquierda */
+  color: #fff;
+  height: 120px; /* ajusta si quieres */
+}
 
   header img {
     height: 60px;
     object-fit: contain;
   }
+
+  header img:first-child {
+  height: 100%;       /* ocupa toda la altura */
+  object-fit: cover;  /* rellena sin deformarse */
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
 
   header h1 {
     font-size: 2rem;
