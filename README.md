@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBM Bioinformatics Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f7f8fc;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #6a5acd, #9b59b6);
+    padding: 20px 40px;
+    color: #fff;
+  }
+
+  header img {
+    height: 60px;
+    object-fit: contain;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 700;
+  }
+
+  main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  /* Card style for each category */
+  details {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  details[open] {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  }
+
+  summary {
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 20px 30px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #6a5acd, #9b59b6);
+    color: #fff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+    list-style: none;
+  }
+
+  summary:hover {
+    background: linear-gradient(90deg, #5b48b2, #8e44ad);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  th, td {
+    padding: 14px 20px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f0e6ff;
+    font-weight: 600;
+    color: #4b3f72;
+    border-bottom: 2px solid #e0d6f0;
+  }
+
+  td {
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+
+  .price-col {
+    width: 100px;
+    font-weight: 600;
+    color: #6a5acd;
+  }
+
+  .desc-col {
+    width: 60%;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .app-name a {
+    color: #4b3f72;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .app-name a:hover {
+    color: #6a5acd;
+    text-decoration: underline;
+  }
+
+  /* Optional service image at top of each section */
+  .service-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+  }
+
+  @media (max-width: 900px) {
+    .desc-col {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+    }
+    .price-col {
+      width: 120px;
+    }
+    th, td {
+      padding: 10px 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="images/logo_CBM.png" alt="CBM Logo">
+  <h1>SABio Services</h1>
+  <img src="images/logo_sabio.jpg" alt="SABio Logo">
+</header>
+
+<main>
+
+<details open>
+  <summary>Transcriptomic Applications</summary>
+  <table>
+    <tr><th>Application</th><th class="price-col">Price (€)</th><th class="desc-col">Analyses included</th></tr>
+    <tr><td class="app-name"><a href="#">Basic RNAseq (gene level)</a></td><td>157,86</td><td>Data QC, Trimming, Alignment, Gene expression quantification, Differential expression profiling</td></tr>
+    <tr><td class="app-name"><a href="#">Basic pathway enrichment</a></td><td>140,32</td><td>Functional enrichment analysis (GSEA and/or ORA)</td></tr>
+  </table>
+</details>
+
+<details>
+  <summary>Epigenomic Applications</summary>
+  <table>
+    <tr><th>Application</th><th class="price-col">Price (€)</th><th class="desc-col">Analyses included</th></tr>
+    <tr><td class="app-name"><a href="#">Basic ChipSeq</a></td><td>175,4</td><td>Data QC, Trimming, Alignment, Peak calling, BigWig files, Gene-body profiles, Peak annotation</td></tr>
+  </table>
+</details>
+
+<!-- Repite para el resto de secciones -->
+
+</main>
+</body>
+</html>
