@@ -226,26 +226,49 @@
 
 <!-- ░░ INTRODUCTION ░░ -->
 <div class="content" id="intro">
-<h2>What is Genome Assembly?</h2>
+  <h2>Introduction to De novo Genome Assembly</h2>
 
-<p>
-Genome assembly is the process of reconstructing the complete DNA sequence of an organism using millions of short or long sequencing reads. 
-Because sequencing technologies do not produce full chromosomes in one piece, the genome must be computationally rebuilt like a puzzle.
-</p>
+  <p>
+    <strong>Genome assembly</strong> is a fundamental process in genomics that aims to reconstruct
+    the complete sequence of an organism's DNA from raw sequencing reads. Modern sequencing
+    technologies do not produce entire chromosomes in a single piece; instead, they generate 
+    millions of short or long DNA fragments that must be computationally reassembled.
+  </p>
 
-<p><strong>Assembly Approaches:</strong></p>
+  <p>
+    There are two major strategies for genome reconstruction:
+  </p>
 
-<ul>
-  <li><strong>Reference-guided (Resequencing)</strong>: reads are aligned to an existing genome. Useful when a high-quality reference is available.</li>
-  <li><strong>De novo Assembly</strong>: the genome is reconstructed exclusively from sequencing data, <strong>without using any reference</strong>. This is analogous to assembling a puzzle without the picture on the box.</li>
-</ul>
+  <ul>
+    <li>
+      <strong>Reference-guided assembly (resequencing)</strong><br>
+      Reads are aligned against a previously characterized genome. While efficient, this strategy inherently introduces <strong>reference 
+      bias</strong> and may mask novel regions absent from the reference.
+    </li>
 
-<h3>Why perform De novo Assembly?</h3>
-<ul>
-  <li>No reference genome exists for the organism of interest.</li>
-  <li>Sequencing technology improves and allows better reconstructions.</li>
-  <li>Reference bias can hide true genetic variants, especially structural changes relevant to the study.</li>
-</ul>
+    <li>
+      <strong>De novo assembly</strong><br>
+      The genome is inferred <strong>exclusively from sequencing data</strong>, without relying on any
+      pre-existing reference sequence. Similar to assembling a puzzle without the image on the box,
+      this approach requires sophisticated algorithms to determine how fragments overlap and fit
+      together. De novo assembly is indispensable when working with non-model organisms, highly
+      variable genomes, or species lacking well-curated references.
+    </li>
+  </ul>
+
+  <h3>Why perform De novo Assembly?</h3>
+  <p>
+    A de novo approach is the method of choice when:
+  </p>
+
+  <ul>
+    <li>No reference genome exists for the organism of interest.</li>
+    <li>New sequencing technologies provide higher accuracy or read lengths compared to legacy data.</li>
+    <li>The use of an existing reference may hinder the detection of biologically relevant
+        variants, especially complex structural rearrangements.</li>
+    <li>Researchers aim to obtain a complete, unbiased genomic representation for annotation,
+        comparative genomic studies, or genetic engineering initiatives.</li>
+  </ul>
 
 </div>
 
@@ -257,7 +280,7 @@ Because sequencing technologies do not produce full chromosomes in one piece, th
     <p>
       Raw FASTQ files are evaluated with <strong>FastQC</strong> and summarized using 
       <strong>MultiQC</strong>. We detect GC biases, adapter contamination, duplicated reads, per-base quality 
-      and other quality issues to ensure high reliability before alignment.
+      and other quality issues to ensure the dataset is suitable for assembly.
     </p>
 
     <div class="images">
@@ -266,7 +289,7 @@ Because sequencing technologies do not produce full chromosomes in one piece, th
     </div>
 
     <p style="text-align:center;">
-      <a href="enlaces/01_fastqc/ERR023195_1_fastqc.html" target="_blank">View FastQC Report</a>
+      <a href="enlaces/01_fastqc/s_6_1_fastqc.html" target="_blank">View FastQC Report</a>
     </p>
     <p style="text-align:center;">
       <a href="enlaces/01_fastqc/multiqc_report.html" target="_blank">View MultiQC Report</a>
@@ -348,5 +371,6 @@ These steps confirm whether the assembly is reliable for downstream analyses suc
 
 </body>
 </html>
+
 
 
