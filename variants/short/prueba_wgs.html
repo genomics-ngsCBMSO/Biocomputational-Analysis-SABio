@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SABio - WGS Short Reads</title>
+
+  <style>
+    /* ----------------------------------
+       GLOBAL THEME (GLASSMORPHISM)
+    ----------------------------------- */
+    :root {
+      --primary: #0076ff;
+      --accent: #00d8c0;
+      --bg-gradient: linear-gradient(135deg, #e3edf7, #f7fbff);
+      --glass-bg: rgba(255, 255, 255, 0.35);
+      --border-glass: rgba(255,255,255,0.55);
+      --text: #0f1b2b;
+      --shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      text-align: justify;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 50px 0 15px;
+      letter-spacing: -1px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    /* ----------------------------------
+       CONTAINERS
+    ----------------------------------- */
+    .content {
+      max-width: 1100px;
+      margin: 45px auto;
+      padding: 35px;
+      background: var(--glass-bg);
+      border: 1px solid var(--border-glass);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(15px);
+      transition: transform 0.4s ease;
+    }
+
+    .content:hover {
+      transform: translateY(-3px);
+    }
+
+    /* ----------------------------------
+       BUTTON PANEL
+    ----------------------------------- */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      margin: 30px auto;
+      max-width: 420px;
+      padding: 20px;
+    }
+
+    .buttons a {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 25px;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: white;
+      background: var(--primary);
+      box-shadow: var(--shadow);
+      transition: 0.3s ease;
+    }
+
+    .buttons a:hover {
+      background: #0057c7;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 22px;
+      color: var(--primary);
+    }
+
+    /* BIG STEP */
+    .bigstep {
+      width: 100%;
+      padding: 20px;
+      background: var(--primary);
+      color: white;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .bigstep-link {
+      display: inline-block;
+      padding: 10px 22px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.6);
+      transition: 0.3s ease;
+      font-weight: bold;
+    }
+
+    .bigstep-link:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    .subbuttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .subbuttons a {
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+      transition: 0.3s ease;
+    }
+
+    .subbuttons a:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ----------------------------------
+       CARDS FOR SUB-STEPS
+    ----------------------------------- */
+    .substep-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      padding: 25px;
+      margin-top: 30px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .substep-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* ----------------------------------
+       IMAGES
+    ----------------------------------- */
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin: 18px 0;
+    }
+
+    .images img {
+      border-radius: 12px;
+      max-width: 100%;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+    }
+
+    a.report-link, .content a[target="_blank"] {
+      display: inline-block;
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 18px;
+      text-decoration: underline;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+
+<h1>Basic WGS (DNAseq) Short Reads<br>offered by SABio</h1>
+
+<div class="buttons">
+  <a href="#intro">Introduction to WGS</a>
+  <div class="arrow">↓</div>
+  <a href="#step1">Step 1: Data Quality Control</a>
+  <div class="arrow">↓</div>
+  <a href="#step2">Step 2: Trimming</a>
+  <div class="arrow">↓</div>
+  <a href="#step3">Step 3: Alignment (BWA-MEM)</a>
+  <div class="arrow">↓</div>
+
+  <div class="bigstep">
+    <a href="#step4" class="bigstep-link">Step 4: Variant Analysis Pipeline</a>
+    <div class="subbuttons">
+      <a href="#fase4_1">Step 4.1 - Data Preprocessing (Picard)</a>
+      <a href="#fase4_2">Step 4.2 - Variant Calling (GATK)</a>
+      <a href="#fase4_3">Step 4.3 - Variant Filtering (VCFfilter)</a>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+  <a href="#step5">Step 5: Variant Annotation (SnpEff)</a>
+  <div class="arrow">↓</div>
+  <a href="#step6">Step 6: Coverage Plots & IGV Visualization</a>
+</div>
+
+<!-- INTRO -->
+<div class="content" id="intro">
+  <h2>Whole-Genome Sequencing (WGS) with Short Reads</h2>
+  <p>
+    <strong>Whole-Genome Sequencing (WGS)</strong> using short-read technology (e.g. Illumina) provides
+    a comprehensive, high-resolution view of the entire DNA content of an organism...
+  </p>
+
+  <div style="display:flex; gap:25px; align-items:center;">
+    <div style="flex:1;">
+      <p>
+        When a <strong>reference genome is available</strong>, this process is known as
+        <strong>resecuenciación</strong>: newly sequenced reads are aligned against the reference to detect genomic differences.
+      </p>
+
+      <p>This allows precise identification of:</p>
+      <ul>
+        <li><strong>SNPs</strong></li>
+        <li><strong>INDELs &lt;50bp</strong></li>
+        <li><strong>Small structural changes</strong></li>
+      </ul>
+    </div>
+
+    <div style="flex:0 0 40%; text-align:center;">
+      <img src="images/wgs_intro.png" style="max-width:300px;">
+    </div>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<div class="content" id="step1">
+  <h2>Step 1: Data Quality Control</h2>
+  <p>Raw FASTQ files are evaluated with <strong>FastQC</strong> and summarized using <strong>MultiQC</strong>...</p>
+  <div class="images">
+    <img src="images/fastqc_bien.png">
+    <img src="images/fastqc_mal.png">
+  </div>
+  <p style="text-align:center;">
+    <a href="enlaces/01_fastqc/ERR023195_1_fastqc.html" target="_blank">View FastQC Report</a>
+  </p>
+  <p style="text-align:center;">
+    <a href="enlaces/01_fastqc/multiqc_report.html" target="_blank">View MultiQC Report</a>
+  </p>
+</div>
+
+<!-- STEP 2 -->
+<div class="content" id="step2">
+  <h2>Step 2: Trimming</h2>
+  <p>Trimming is an essential step...</p>
+  <div class="images">
+    <img src="images/table_trim.png">
+    <img src="images/fastp_filtered_reads_plot.png">
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="content" id="step3">
+  <h2>Step 3: Alignment with BWA-MEM</h2>
+  <p>High-quality reads are aligned...</p>
+  <div class="images">
+    <img src="images/bam_stats.png" style="width:100%;">
+  </div>
+  <p style="text-align:center;">
+    <a href="enlaces/02_bam/multiqc_report.html" target="_blank">View MultiQC Report</a>
+  </p>
+</div>
+
+<!-- STEP 4 -->
+<div class="content" id="step4">
+  <h2>Step 4: Variant Analysis Pipeline</h2>
+  <p>Once reads are aligned...</p>
+  <div class="images">
+    <img src="images/variant_calling.png" style="width:65%;">
+  </div>
+
+  <!-- 4.1 -->
+  <div class="substep-card" id="fase4_1">
+    <h3>Step 4.1: Data Preprocessing with Picard</h3>
+    <p>Before performing variant calling...</p>
+    <div class="images">
+      <img src="images/picard.png" style="width:75%;">
+    </div>
+  </div>
+
+  <!-- 4.2 -->
+  <div class="substep-card" id="fase4_2">
+    <h3>Step 4.2: Variant Calling with GATK</h3>
+    <p>Variant discovery is performed using GATK...</p>
+    <div class="images">
+      <img src="images/gatk.jpg" style="width:50%;">
+    </div>
+  </div>
+
+  <!-- 4.3 -->
+  <div class="substep-card" id="fase4_3">
+    <h3>Step 4.3: Variant Filtering</h3>
+    <p>The raw variant file may still contain sequencing artifacts...</p>
+    <div class="images">
+      <img src="images/vcf.png" style="width:70%;">
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="content" id="step5">
+  <h2>Step 5: Variant Annotation with SnpEff</h2>
+  <p>Once high-confidence variants are obtained...</p>
+  <div class="images">
+    <img src="images/snpeff.png">
+    <img src="images/snpeff_2.png">
+  </div>
+  <p style="text-align:center;">
+    <a href="enlaces/03_snpeff/stats_resistant.html" target="_blank">View SnpEff Report</a>
+  </p>
+</div>
+
+<!-- STEP 6 -->
+<div class="content" id="step6">
+  <h2>Step 6: Coverage Analysis & IGV Visualization</h2>
+  <p>Sequencing coverage provides insight...</p>
+  <div class="images">
+    <img src="images/coverage.png" style="width:75%;">
+  </div>
+  <div class="images">
+    <img src="images/igv.png" style="width:65%;">
+  </div>
+</div>
+
+</body>
+</html>
