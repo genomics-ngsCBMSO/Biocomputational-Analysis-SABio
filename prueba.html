@@ -16,18 +16,20 @@
 
   /* Header */
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(90deg, #2780F5, #27D6F5);
-    padding: 0 20px; /* SIN padding izquierdo */
-    color: #fff;
+  display: flex;
+  align-items: stretch; /* asegura altura completa */
+  justify-content: space-between;
+  background: linear-gradient(90deg, #2780F5, #27D6F5);
+  padding: 0 20px 0 0; /* sin padding a la izquierda */
+  color: #fff;
+  height: 120px; /* altura del header: ajustable */
 }
 
-  header img {
-    height: 60px;
-    object-fit: contain;
-  }
+  .header-center {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  gap: 20px; /* separación entre texto e imagen derecha */
+}
 
   header img:first-child {
   height: 100%;       /* ocupa toda la altura */
@@ -156,8 +158,10 @@ header {
 
 <header>
   <img src="images/logo_sabio.png" alt="SABio Logo">
+  <div class="header-center">
   <h1>SABio Services</h1>
-  <img src="images/logo_CBM.png" alt="CBM Logo">
+  <img src="images/logo_CBM.png" alt="CBM Logo" style="height:60px;">
+  </div>
 </header>
 
 <main>
