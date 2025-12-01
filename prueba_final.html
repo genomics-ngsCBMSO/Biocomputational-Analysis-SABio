@@ -25,7 +25,6 @@
       left: 0;
       width: 100%;
       z-index: 1000;
-      transition: height 0.3s, padding 0.3s; /* Para animación al encoger */
       height: 200px; /* Altura inicial */
       background-image: url("images/logo_sabio.jpg");
       background-size: cover;
@@ -33,6 +32,8 @@
       display: flex;
       align-items: center;
       padding-left: 80px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      transition: height 0.45s ease, padding 0.45s ease; /* transición suave al encoger */
     }
 
 
@@ -42,11 +43,13 @@
       border-radius: 20px;
       color: white;
       max-width: 480px;
+      transition: padding 0.45s ease; /* transición suave al encoger */
     }
 
     .header-content h1, .header-content h3 {
       margin: 0;
       line-height: 1.2;
+      transition: font-size 0.45s ease; /* transición suave al cambiar tamaño de la letra */
     }
 
     .header-content h3 {
@@ -67,6 +70,7 @@
       top: 20px;
       right: 130px;
       height: 100px;
+      transition: height 0.45s ease, border-radius 0.45s ease; /* transición suave al encoger */
     }
 
     /* ----------------------------------------------------
@@ -502,7 +506,6 @@
     if(scrollY > 50){ 
       header.style.height = '120px';
       headerContent.style.padding = '10px 20px';
-      headerContent.style.fontSize = '16px';
       headerH1.style.fontSize = '18px'; // Tamaño reducido
       headerH3.style.fontSize = '12px'; // Tamaño reducido
       logo.style.height = '60px';
@@ -510,7 +513,6 @@
     } else {
       header.style.height = '200px';
       headerContent.style.padding = '25px 35px';
-      headerContent.style.fontSize = '28px';
       headerH1.style.fontSize = '28px'; // Tamaño original
       headerH3.style.fontSize = '20px'; // Tamaño original
       logo.style.height = '100px';
