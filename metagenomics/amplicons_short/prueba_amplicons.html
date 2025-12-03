@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Amplicons Metagenomics 16S/18S/ITS (Short Reads)</title>
+
+<!-- TIPOGRAFÍA -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   🎨 PALETA MODERNIZADA
+   ========================================================= */
+:root {
+  --grad-main: linear-gradient(135deg, #3b82f6, #6366f1);
+  --grad-hover: linear-gradient(135deg, #2563eb, #4f46e5);
+  --text-color: #0f172a;
+  --bg-light: #f8fafc;
+  --white: #fff;
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+html { font-size: clamp(14px, 1vw, 18px); }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-color);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+header.hero {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  padding-left: clamp(30px, 6vw, 90px);
+  background: var(--grad-main);
+  color: white;
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  gap: 40px;
+  transition: all .45s ease;
+  z-index: 1000;
+}
+
+.logo {
+  height: 110px;
+  border-radius: 22px;
+  transition: all .45s ease;
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: clamp(24px,3.1vw,42px);
+  font-weight: 800;
+  letter-spacing: .5px;
+  transition: font-size .45s ease;
+}
+
+.header-content h3 {
+  margin: 6px 0 0 0;
+  font-size: clamp(14px,1.2vw,20px);
+  font-weight: 300;
+  opacity: .9;
+  transition: font-size .45s ease;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+.content-container {
+  padding-top: 200px;
+  padding-inline: clamp(40px, 6vw, 120px);
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg,#3b82f6,#6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================================
+   TABS PRINCIPALES
+   ========================================================= */
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-top: 35px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 12px 26px;
+  cursor: pointer;
+  border-radius: 18px;
+  background: white;
+  border: 1px solid #c7d2fe;
+  font-weight: 600;
+  transition: .25s;
+  color: #334155;
+  box-shadow: 0 4px 14px rgba(0,0,0,.04);
+  user-select: none;
+}
+
+.tab:hover {
+  background: var(--grad-hover);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(99,102,241,.2);
+}
+
+.tab.active {
+  background: var(--grad-main);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 24px rgba(99,102,241,.3);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   CONTENIDO DE TABS
+   ========================================================= */
+.tab-content {
+  display: none;
+  background: white;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.08);
+  animation: fade .45s ease;
+  margin-top: 10px;
+}
+
+@keyframes fade { from {opacity:0;} to {opacity:1;} }
+
+/* =========================================================
+   SUBTABS
+   ========================================================= */
+.subtabs {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.subtab {
+  background: #eef2ff;
+  padding: 10px 18px;
+  font-size: .9rem;
+  font-weight: 600;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: .25s;
+  color: #475569;
+}
+
+.subtab:hover { background: #dbe1ff; transform: translateY(-1px); }
+
+.subtab.active {
+  background: var(--grad-main);
+  color: white;
+  box-shadow: 0 6px 18px rgba(99,102,241,.3);
+  transform: translateY(-2px);
+}
+
+.subtab-content {
+  display: none;
+  padding: 20px 5px;
+  animation: fade .4s ease;
+}
+
+/* =========================================================
+   IMÁGENES GLOBALES
+   ========================================================= */
+.images, .images-row, .images-column {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.images img, .step1-images img {
+  max-width: 45%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.05);
+}
+
+/* =========================================================
+   STEP 1 LAYOUT
+   ========================================================= */
+.step1-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 35px;
+}
+
+.step1-text {
+  flex: 1 1 420px;
+  text-align: justify;
+}
+
+.step1-links {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.step1-links a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.step1-links a:hover { opacity: .6; }
+
+.step1-images { flex: 1 1 420px; }
+
+/* =========================================================
+   HEADER SCROLL CONTRACTION
+   ========================================================= */
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+  <img src="images/logo.png" class="logo">
+  <div class="header-content">
+    <h1>Amplicons Metagenomics<br>16S / 18S / ITS</h1>
+    <h3>Short-read sequencing workflow</h3>
+  </div>
+</header>
+
+<div class="content-container">
+
+<div class="tabs">
+  <div class="tab active" data-target="introduction">Introduction</div>
+  <div class="tab" data-target="fase1">Step 1: Data Quality Control</div>
+  <div class="tab" data-target="fase2">Step 2: Trimming</div>
+  <div class="tab" data-target="fase3">Step 3: QIIME</div>
+</div>
+
+<!-- Step 1 -->
+<div id="fase1" class="tab-content">
+  <div class="step1-container">
+    <div class="step1-text">
+      <p>Raw sequencing data (FASTQ files) is assessed for quality using <strong>FastQC</strong> and <strong>MultiQC</strong> to detect adapter contamination, low-quality reads, or GC bias.</p>
+      <br><br><br><br>
+      <div class="step1-links">
+        <a href="enlaces/01_fastqc/F3D0_S188_L001_R1_001_fastqc.html" target="_blank">View FastQC Report</a>
+        <a href="enlaces/01_fastqc/multiqc_report.html" target="_blank">View MultiQC Report</a>
+      </div>
+    </div>
+
+    <div class="step1-images">
+      <img src="images/fastqc_mal.png" alt="Quality control bad">
+      <img src="images/fastqc_bien.png" alt="Quality control good">
+    </div>
+  </div>
+</div>
+
+<!-- Step 2 -->
+<div id="fase2" class="tab-content">
+  <p>Adapters, low-quality bases, and technical artifacts are removed using <strong>Trimmomatic</strong> or <strong>fastp</strong> to improve downstream analyses.</p>
+  <div class="images-row">
+    <img src="images/table_trim.png" alt="Trimming">
+    <img src="images/fastp_filtered_reads_plot.png" alt="Filtered reads">
+  </div>
+</div>
+
+<!-- Step 3 -->
+<div id="fase3" class="tab-content">
+  <div class="images">
+    <img src="images/logo.png" alt="Qiime2 logo" style="width: 10%">
+    <img src="images/overview.png" alt="Conceptual overview of Qiime2" style="width:60%;">
+  </div>
+  <p>QIIME 2 transforms high-quality sequencing reads into microbial profiles, denoising sequences, identifying ASVs, assigning taxonomy, evaluating diversity, and visualizing results.</p>
+
+  <div class="subtabs">
+    <div class="subtab" data-sub="fase3_1">3.1 Data import & preprocessing</div>
+    <div class="subtab" data-sub="fase3_2">3.2 Denoising & Clustering</div>
+    <div class="subtab" data-sub="fase3_3">3.3 Taxonomic assignment</div>
+    <div class="subtab" data-sub="fase3_4">3.4 Diversity analysis</div>
+  </div>
+
+  <!-- Substep 3.1 -->
+  <div id="fase3_1" class="subtab-content"">
+    <p>Preprocessing includes demultiplexing, primer removal, and paired-end read joining. Generates QIIME 2 reports with per-base quality and read counts.</p>
+    <div class="images">
+      <img src="images/preprocessing.png" alt="Preprocessing steps">
+      <img src="images/sequences_report_1.png" alt="Sequences Report 1">
+      <img src="images/sequences_report_2.png" alt="Sequences Report 2">
+    </div>
+    <p style="text-align:center;"><a href="enlaces/02_qiime/01_paired_end_sequences.qzv_exported/index.html" target="_blank">View Sequences Report</a></p>
+  </div>
+
+  <!-- Substep 3.2 -->
+  <div id="fase3_2" class="subtab-content">
+    <p>Denoising corrects errors and recovers high-resolution ASVs. Uses DADA2 in QIIME 2 to generate feature tables, representative sequences, and statistics.</p>
+    <div class="images">
+      <img src="images/denoise_clustering.png" alt="Denoising and clustering">
+      <img src="images/feature_table.png" alt="Feature Table">
+      <img src="images/representative_sequences.png" alt="Representative Sequences">
+      <img src="images/statistics_report.png" alt="Statistics Report">
+    </div>
+    <p style="text-align:center;">
+      <a href="enlaces/02_qiime/02_feature_table.qzv_exported/index.html" target="_blank">View Feature Table</a> |
+      <a href="enlaces/02_qiime/03_rep-seqs.qzv_exported/index.html" target="_blank">View Representative Sequences</a> |
+      <a href="enlaces/02_qiime/04_stats.qzv_exported/index.html" target="_blank">View Statistics Report</a>
+    </p>
+  </div>
+
+  <!-- Substep 3.3 -->
+  <div id="fase3_3" class="subtab-content">
+    <p>Assigns taxonomy to ASVs using curated reference databases. Produces taxonomy tables, search results, and interactive barplots.</p>
+    <div class="images">
+      <img src="images/taxonomy_table.png" alt="Taxonomy Table">
+      <img src="images/search_results.png" alt="Search Results">
+      <img src="images/taxonomy_barplot.png" alt="Taxonomy Barplot">
+    </div>
+    <p style="text-align:center;">
+      <a href="enlaces/02_qiime/05_taxonomy.qzv_exported/index.html" target="_blank">View Taxonomy Table</a> |
+      <a href="enlaces/02_qiime/06_search_results.qzv_exported/index.html" target="_blank">View Search Results</a> |
+      <a href="enlaces/02_qiime/07_taxa-bar-plots.qzv_exported/index.html" target="_blank">View Taxonomy Barplot</a>
+    </p>
+  </div>
+
+  <!-- Substep 3.4 -->
+  <div id="fase3_4" class="subtab-content">
+    <p>Calculates alpha and beta diversity metrics using phylogeny-aware analyses. Generates rarefaction curves, PCoA plots, and other diversity visualizations.</p>
+    <div class="images">
+      <img src="images/alpha.png" alt="Alpha Diversity">
+      <img src="images/beta.png" alt="Beta Diversity">
+    </div>
+    <p style="text-align:center;"><a href="enlaces/02_qiime/08_alpha-rarefaction.qzv_exported/index.html" target="_blank">View Alpha Rarefaction</a> | <a href="enlaces/02_qiime/09_bray_curtis_emperor.qzv_exported/index.html" target="_blank">View Beta Diversity (PCoA)</a></p>
+  </div>
+</div>
+
+<script>
+/* HEADER SCROLL */
+const header = document.querySelector('header.hero');
+const logo = document.querySelector('.logo');
+const h1 = document.querySelector('.header-content h1');
+const h3 = document.querySelector('.header-content h3');
+
+window.addEventListener('scroll', () => {
+  if (scrollY > 60) {
+    header.style.height = '90px';
+    logo.style.height = '50px';
+    logo.style.borderRadius = '10px';
+    h1.style.fontSize = '20px';
+    h3.style.fontSize = '12px';
+  } else {
+    header.style.height = '210px';
+    logo.style.height = '110px';
+    logo.style.borderRadius = '22px';
+    h1.style.fontSize = '34px';
+    h3.style.fontSize = '18px';
+  }
+});
+
+/* MAIN TABS */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.target).style.display = 'block';
+  });
+});
+
+/* SUBTABS */
+document.querySelectorAll('.subtab').forEach(sub => {
+  sub.addEventListener('click', () => {
+    document.querySelectorAll('.subtab').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.subtab-content').forEach(c => c.style.display = 'none');
+    sub.classList.add('active');
+    document.getElementById(sub.dataset.sub).style.display = 'block';
+  });
+});
+</script>
+
+</body>
+</html>
