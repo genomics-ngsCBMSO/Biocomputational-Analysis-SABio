@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Biocomputational analysis (SABio) — Premium</title>
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --surface: #f7fbff;
+      --text: #1b4f72;
+      --muted: #6b7280;
+      --primary: #1b4f72; /* azul acordeón */
+      --primary-tr: #1b4f72ab; /* azul acordeón transparencia*/
+      --accent: #2176ff;
+      --radius-lg: 14px;
+      --radius-md: 8px;
+      --shadow-1: 0 6px 20px rgba(16,24,40,0.08);
+      --shadow-2: 0 10px 30px rgba(16,24,40,0.12);
+      --gap: 20px;
+      --accordion-bg: #dff0ff;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: var(--bg);
+      color: var(--text);
+      line-height:1.45;
+      padding-bottom:80px;
+    }
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .container{max-width:1200px;margin:0 auto;padding:24px}
+
+    /* Cabecera */
+    header.hero{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      background-image: url('images/logo_sabio.jpg');
+      background-size: cover;
+      background-position: center;
+      padding:20px 40px;
+      border-radius:16px;
+      height:200px;
+    }
+
+    .hero-left{
+      background-color: var(--primary-tr); /* Recuadro azul transparente */
+      padding:20px 30px;
+      border-radius:16px;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .hero-left h3{margin:0; font-weight:400; font-size:18px;}
+    .hero-left h1{margin:5px 0 0; font-size:28px; line-height:1.2;}
+    .hero-left p{margin:0; font-size:16px;}
+
+    .hero-right img{
+      height:80px;
+      border-radius:16px;
+    }
+
+    /* Grid para contenido y panel derecho */
+    .grid{
+      display:flex;
+      gap:20px;
+      margin-top:20px;
+    }
+
+    main{
+      flex:1;
+    }
+
+    aside.sidebar{
+      width:360px;
+      background:var(--surface);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:var(--shadow-1);
+      flex-shrink:0;
+    }
+
+    .meta{font-size:13px;color:var(--muted);margin-bottom:12px}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(223,240,255,0.4);font-weight:600; margin-bottom:6px; margin-right:6px}
+
+    /* Accordion */
+    .section{margin-bottom:14px}
+    details.accordion{border-radius:10px;background:transparent;padding:0}
+    details summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 18px;
+      border-radius:10px;
+      background: var(--accordion-bg);
+      border:1px solid rgba(16,24,40,0.04);
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+      font-weight:600;
+      color: var(--primary);
+    }
+    details[open] summary{transform:translateY(-2px)}
+
+    .caret{transition:transform .28s ease}
+    details[open] summary .caret{transform:rotate(90deg)}
+
+    .panel{padding:14px 18px 20px;background:linear-gradient(180deg, rgba(223,240,255,0.1), transparent);border-radius:8px;margin-top:10px}
+
+    /* Table improvements */
+    .services-table{width:100%;border-collapse:collapse;border-radius:3px;overflow:hidden}
+    .services-table thead th{background: var(--primary); color:white; padding:12px;text-align:left;font-weight:600}
+    .services-table tbody tr{border-bottom:1px solid rgba(16,24,40,0.04);}
+    .services-table td{padding:12px;vertical-align:top}
+    .price-badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(33,118,255,0.12);color:var(--primary);font-weight:700}
+
+    footer{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:12px;
+      display:flex;
+      justify-content:center;
+      z-index:50;
+    }
+
+    .footer-inner{
+      max-width:1200px;
+      width:100%;
+      padding:12px 20px;
+      border-radius:14px;
+      background:linear-gradient(90deg, rgba(13,71,161,0.06), rgba(0,0,0,0.03));
+      box-shadow:var(--shadow-1);
+      display:flex;
+      justify-content:space-between;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="hero">
+      <div class="hero-left">
+        <h3>Services</h3>
+        <h1>Biocomputational analysis</h1>
+        <p>(SABio)</p>
+      </div>
+      <div class="hero-right">
+        <img src="images/logo_CBM.jpg" alt="Logo CBM">
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <!-- Accordion example -->
+        <section class="section">
+          <details class="accordion" open>
+            <summary>
+              <div class="title">Transcriptomic applications</div>
+              <div class="caret">▶</div>
+            </summary>
+            <div class="panel">
+              <table class="services-table">
+                <thead>
+                  <tr><th>Application</th><th style="width:120px">Cost (€)</th><th>Analyses included</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Basic RNAseq (gene level)</td>
+                    <td><span class="price-badge">157,86</span></td>
+                    <td>Data QC, Trimming, Alignment, Gene quantification, Differential expression profiling</td>
+                  </tr>
+                  <tr>
+                    <td>Basic pathway enrichment</td>
+                    <td><span class="price-badge">140,32</span></td>
+                    <td>Functional enrichment analysis (GSEA and/or ORA)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+      </main>
+
+      <aside class="sidebar" aria-labelledby="sidebarTitle">
+        <h3 id="sidebarTitle" style="margin-top:0;font-family:'Montserrat'">Información básica</h3>
+        <p class="meta">Servicios por área, tiempos estimados y formatos de entrega (HTML, PDF, tablas, visualizaciones interactivas).</p>
+
+        <div>
+          <span class="chip">Entrega: 5-10 días</span>
+          <span class="chip">Soporte: correo</span>
+          <span class="chip">Repo: public / private</span>
+        </div>
+
+        <div style="margin-top:12px">
+          <strong>Contacto</strong>
+          <p class="muted" style="margin:6px 0 0;font-size:14px">email@ejemplo.es<br/>+34 600 000 000</p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner" role="contentinfo">
+      <div>© SABio — Centro de Biocomputación — Última actualización 03/12/2025</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <a href="#" style="color:var(--muted)">Política de privacidad</a>
+        <a href="#" style="color:var(--muted)">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

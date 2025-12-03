@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biocomputational analysis — SABio</title>
+
+  <!-- Fuentes modernas -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------------
+       Variables / Paleta
+       ------------------------- */
+    :root{
+      --bg: #F7FAFF;
+      --card: #ffffff;
+      --primary: #0D47A1;       /* azul corporativo */
+      --primary-600: #0B3A80;
+      --accent: #1e88e5;
+      --muted: #6b7280;
+      --glass: rgba(13,71,161,0.14);
+      --glass-strong: rgba(255,255,255,0.6);
+      --success: #059669;
+      --radius: 12px;
+      --max-width: 1200px;
+      --shadow-1: 0 6px 20px rgba(16,24,40,0.06);
+      --shadow-2: 0 10px 30px rgba(13,71,161,0.06);
+    }
+
+    /* -------------------------
+       Reset / Base
+       ------------------------- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg), #ffffff 70%);
+      color: #0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:60px;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* -------------------------
+       Layout container
+       ------------------------- */
+    .container{
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: calc(200px + 24px) 28px 48px; /* leave space for hero header */
+    }
+
+    /* -------------------------
+       HERO / HEADER
+       ------------------------- */
+    header.hero{
+      position: fixed;
+      top:0; left:0; right:0;
+      height:200px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:28px calc((100% - var(--max-width))/2 + 28px);
+      gap:20px;
+      z-index:1000;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.25)),
+        url("images/logo_sabio.jpg") center/cover no-repeat;
+      box-shadow: var(--shadow-2);
+      transition: height .45s ease, padding .45s ease, box-shadow .25s ease, backdrop-filter .45s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-inner{
+      display:flex;
+      align-items:center;
+      gap:20px;
+      width:100%;
+      max-width:var(--max-width);
+    }
+
+    .brand{
+      background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.25));
+      border-radius: var(--radius);
+      padding:18px 20px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      box-shadow: var(--shadow-1);
+      min-width:320px;
+    }
+
+    .brand .titles h3{
+      margin:0;
+      font-family: "Montserrat", sans-serif;
+      font-weight:600;
+      letter-spacing:0.2px;
+      color:var(--primary-600);
+      font-size:13px;
+      opacity:.95;
+    }
+    .brand .titles h1{
+      margin:0;
+      font-family: "Montserrat", sans-serif;
+      font-weight:700;
+      font-size:22px;
+      line-height:1.05;
+      color: #03263f;
+    }
+
+    .brand-logo {
+      width:86px;
+      height:72px;
+      border-radius:10px;
+      overflow:hidden;
+      background:var(--glass-strong);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .brand-logo img{ width:100%; height:100%; object-fit:contain; display:block }
+
+    .hero-actions {
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .cbm-logo{
+      width:120px;
+      height:72px;
+      border-radius:12px;
+      overflow:hidden;
+      background:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: var(--shadow-1);
+    }
+    .cbm-logo img{ width:100%; height:100%; object-fit:contain }
+
+    /* SHRINKED STATE */
+    .hero.shrink{
+      height:110px;
+      padding-top:12px;
+      box-shadow: 0 8px 28px rgba(2,6,23,0.12);
+      backdrop-filter: blur(6px);
+    }
+    .hero.shrink .brand{ padding:10px 12px }
+    .hero.shrink .brand-logo{ width:64px; height:48px; border-radius:8px }
+    .hero.shrink .brand .titles h1{ font-size:16px }
+    .hero.shrink .brand .titles h3{ font-size:11px }
+
+    /* -------------------------
+       Sections & headings
+       ------------------------- */
+    h2.section-title{
+      font-family: "Montserrat", sans-serif;
+      color:var(--primary-600);
+      font-size:18px;
+      margin:0 0 16px 0;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .section{
+      margin-bottom:28px;
+    }
+
+    /* -------------------------
+       ACCORDION (accessible)
+       ------------------------- */
+    .accordion-list {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+
+    /* Using <details> for accessibility, but styled */
+    details.card{
+      background:var(--card);
+      border-radius:12px;
+      padding:0;
+      overflow:visible;
+      box-shadow: var(--shadow-1);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    details.card[open]{ box-shadow: 0 18px 40px rgba(13,71,161,0.06) }
+    details.card summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:18px 20px;
+      border-radius:12px;
+    }
+    details.card summary::-webkit-details-marker{ display:none }
+    .summary-left{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .summary-left .title{
+      font-family: "Montserrat", sans-serif;
+      font-weight:700;
+      color:#07243a;
+      font-size:15px;
+    }
+    .summary-left .subtitle{
+      font-size:13px;
+      color:var(--muted);
+    }
+    .summary-right{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .chev{
+      width:36px; height:36px;
+      border-radius:10px;
+      display:grid; place-items:center;
+      background: linear-gradient(180deg, rgba(13,71,161,0.06), rgba(13,71,161,0.03));
+      transition: transform .35s cubic-bezier(.2,.9,.2,1);
+    }
+    details[open] .chev{ transform: rotate(90deg) }
+
+    /* Panel content */
+    .panel{
+      padding:18px 20px 24px 20px;
+      border-top: 1px solid rgba(13,71,161,0.06);
+    }
+
+    /* -------------------------
+       Table responsive -> cards on mobile
+       ------------------------- */
+    .table-wrap{ overflow:hidden; border-radius:10px }
+    table.pricing{
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+      min-width:720px;
+    }
+    table.pricing thead th{
+      text-align:left;
+      padding:12px 14px;
+      font-weight:700;
+      background: linear-gradient(90deg, rgba(13,71,161,0.08), rgba(30,136,229,0.02));
+      color:var(--primary-600);
+      font-family: "Montserrat", sans-serif;
+      position:sticky;
+      top:0;
+      z-index:2;
+    }
+    table.pricing tbody tr{
+      border-bottom:1px solid rgba(15,23,36,0.06);
+      transition: background .12s ease, transform .12s ease;
+    }
+    table.pricing tbody tr:hover{ background: linear-gradient(90deg, rgba(13,71,161,0.02), rgba(255,255,255,0)) }
+    table.pricing td{
+      padding:12px 14px;
+      vertical-align:top;
+      color:#092033;
+    }
+    .price{
+      font-weight:700;
+      color:var(--primary-600);
+      text-align:center;
+      min-width:110px;
+    }
+    .app-col a{ color:var(--primary-600); font-weight:600 }
+    .desc-col{ color: #263238; text-align:justify; }
+
+    /* Mobile: convert rows to cards */
+    @media (max-width:860px){
+      .container{ padding-top:160px }
+      table.pricing{ min-width:0; display:block }
+      table.pricing thead{ display:none }
+      table.pricing tbody{ display:grid; gap:10px }
+      table.pricing tbody tr{ display:block; background:var(--card); border-radius:10px; padding:12px; box-shadow: var(--shadow-1) }
+      table.pricing td{ display:block; padding:6px 0 }
+      .row-top{ display:flex; justify-content:space-between; gap:12px; align-items:center }
+      .desc-col{ text-align:left }
+      .price{ font-size:15px }
+    }
+
+    /* -------------------------
+       Small utilities
+       ------------------------- */
+    .muted { color:var(--muted); font-size:13px }
+    .badge {
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:12px;
+      background: linear-gradient(90deg,#E8F3FF,#F8FAFF);
+      color: var(--primary-600);
+      box-shadow: 0 4px 14px rgba(13,71,161,0.04);
+    }
+
+    /* -------------------------
+       FOOTER
+       ------------------------- */
+    footer.site-footer{
+      margin-top:36px;
+      border-top:1px solid rgba(2,6,23,0.04);
+      padding:24px 28px;
+      display:flex;
+      gap:20px;
+      align-items:center;
+      justify-content:space-between;
+      background:transparent;
+      color:var(--muted);
+      position:fixed;
+      left:0; right:0; bottom:0;
+      z-index:900;
+    }
+    footer .left{ font-size:13px }
+    footer .right{ display:flex; gap:12px; align-items:center }
+
+    /* Focus states accesible */
+    a:focus, button:focus, summary:focus { outline: 3px solid rgba(13,71,161,0.12); outline-offset:3px; border-radius:6px; }
+
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero" id="heroHeader" role="banner">
+    <div class="hero-inner">
+      <div class="brand" aria-hidden="false">
+        <div class="brand-logo" aria-hidden="true">
+          <img src="images/logo_sabio.jpg" alt="SABio">
+        </div>
+        <div class="titles">
+          <h3>Services</h3>
+          <h1>Biocomputational analysis<br><small style="font-weight:500; font-size:12px; color:var(--muted);">SABio — Core Bioinformatics</small></h1>
+        </div>
+      </div>
+
+      <div class="hero-actions" aria-hidden="true">
+        <div class="cbm-logo"><img src="images/logo_CBM.png" alt="CBM"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container" id="mainContent">
+    <!-- Intro -->
+    <section class="section">
+      <h2 class="section-title">Nuestros servicios</h2>
+      <p class="muted">Análisis biocomputacionales especializados en transcriptómica, epigenómica, single-cell, variantes, ensamblaje, metagenómica y envío de datos a repositorios públicos. Precios indicativos y trabajo a medida según necesidad.</p>
+    </section>
+
+    <!-- Accordion list -->
+    <section class="section">
+      <div class="accordion-list" role="list">
+
+        <!-- Transcriptomic -->
+        <details class="card" open>
+          <summary aria-controls="panel-transcriptomic" aria-expanded="true">
+            <div class="summary-left">
+              <div class="title">Transcriptomic applications</div>
+              <div class="subtitle">RNAseq, small RNA, splicing y enriquecimientos funcionales</div>
+            </div>
+            <div class="summary-right">
+              <span class="badge">Popular</span>
+              <div class="chev" aria-hidden="true">
+                <!-- svg chevron -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="#0B3A80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div id="panel-transcriptomic" class="panel" role="region" aria-labelledby="">
+            <div class="table-wrap">
+              <table class="pricing" aria-describedby="transcript-desc">
+                <thead>
+                  <tr>
+                    <th class="app-col">Application</th>
+                    <th class="price-col">Cost (€)</th>
+                    <th class="desc-col">Analyses included</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="app-col"><a href="transcriptomics/rnaseq/rnaseq.html" target="_blank">Basic RNAseq (gene level)</a></td>
+                    <td class="price-col price">157,86 €</td>
+                    <td class="desc-col">Data Quality Control, Trimming, Alignment, Gene expression quantification, Differential expression profiling</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="transcriptomics/pathway_enrichment/rutas.html" target="_blank">Basic pathway enrichment</a></td>
+                    <td class="price-col price">140,32 €</td>
+                    <td class="desc-col">Functional enrichment analysis (GSEA and/or ORA)</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="transcriptomics/rnaseq/rnaseq.html" target="_blank">RNAseq + Pathway enrichment</a></td>
+                    <td class="price-col price">263,10 €</td>
+                    <td class="desc-col">QC, Trimming, Alignment, Gene quantification, DE profiling, GO/Pathway enrichment</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="transcriptomics/splicing/splicing.html" target="_blank">Splicing</a></td>
+                    <td class="price-col price">87,70 €</td>
+                    <td class="desc-col">Event-based alternative splicing analysis with specialized software</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="transcriptomics/small_rnaseq/small_rnaseq.html" target="_blank">Small RNA-Seq</a></td>
+                    <td class="price-col price">192,94 €</td>
+                    <td class="desc-col">QC, Trimming, Alignment, miRNA quantification, Normalization, DE analysis, novel miRNA discovery, visualization</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="transcriptomics/small_rnaseq_enrichment/small_rnaseq_enrichment.html" target="_blank">Pathway enrichment (small RNA)</a></td>
+                    <td class="price-col price">149,09 €</td>
+                    <td class="desc-col">Functional GO enrichment analysis of miRNA-mRNA pathways</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <!-- Epigenomic -->
+        <details class="card">
+          <summary aria-controls="panel-epigenomic">
+            <div class="summary-left">
+              <div class="title">Epigenomic applications</div>
+              <div class="subtitle">ChIP-seq, ATAC-seq y análisis de sitios diferenciales</div>
+            </div>
+            <div class="summary-right">
+              <div class="chev" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="#0B3A80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div id="panel-epigenomic" class="panel">
+            <div class="table-wrap">
+              <table class="pricing">
+                <thead>
+                  <tr><th>Application</th><th>Cost (€)</th><th>Analyses included</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="app-col"><a href="epigenomics/chipseq/chipseq.html" target="_blank">Basic ChipSeq</a></td>
+                    <td class="price-col price">175,40 €</td>
+                    <td class="desc-col">QC, Trimming, Alignment, Peak calling, bigWig, quality metrics, peak annotation, consensus peakset</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="epigenomics/atacseq/atacseq.html" target="_blank">Basic ATACseq</a></td>
+                    <td class="price-col price">193,38 €</td>
+                    <td class="desc-col">QC, Trimming, Alignment, Peak calling, bigWig, meta-profiles, peak annotation</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="epigenomics/chipseq_dbs/chipseq_dbs.html" target="_blank">ChipSeq + DBS + Motifs</a></td>
+                    <td class="price-col price">306,95 €</td>
+                    <td class="desc-col">Count reads in peaks, Differential binding sites detection, motifs analysis</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="epigenomics/atacseq_dar/atacseq_dar.html" target="_blank">ATACseq + DAR + Motifs</a></td>
+                    <td class="price-col price">368,48 €</td>
+                    <td class="desc-col">Count reads in peaks, Differential accessibility (DARs), motifs analysis</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <!-- Single Cell -->
+        <details class="card">
+          <summary aria-controls="panel-singlecell">
+            <div class="summary-left">
+              <div class="title">Single Cell applications</div>
+              <div class="subtitle">scRNAseq y análisis integrados</div>
+            </div>
+            <div class="summary-right">
+              <div class="chev" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="#0B3A80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div id="panel-singlecell" class="panel">
+            <div class="table-wrap">
+              <table class="pricing">
+                <thead><tr><th>Application</th><th>Cost (€)</th><th>Analyses included</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td class="app-col"><a href="single_cell/scrnaseq/scrnaseq.html" target="_blank">Basic scRNAseq</a></td>
+                    <td class="price-col price">438,50 €</td>
+                    <td class="desc-col">QC, Trimming, Alignment, UMI-count table, QC cells, Normalization, Dim. reduction, Clustering, Marker detection, Cell-type annotation, DE</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="single_cell/pathway_enrichment/scrnaseq_enrichment.html" target="_blank">scRNAseq + pathway enrichment</a></td>
+                    <td class="price-col price">543,74 €</td>
+                    <td class="desc-col">Functional enrichment analysis (GSEA and/or ORA)</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="single_cell/rnaseq_integration/rnaseq_integration.html" target="_blank">scRNAseq + RNAseq integration</a></td>
+                    <td class="price-col price">596,36 €</td>
+                    <td class="desc-col">Deconvolution, manual curation, Functional enrichment</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <!-- Variants -->
+        <details class="card">
+          <summary aria-controls="panel-variants">
+            <div class="summary-left">
+              <div class="title">Variants applications</div>
+              <div class="subtitle">WGS short/long reads, SVs, CNVs</div>
+            </div>
+            <div class="summary-right">
+              <div class="chev" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="#0B3A80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div id="panel-variants" class="panel">
+            <div class="table-wrap">
+              <table class="pricing">
+                <thead><tr><th>Application</th><th>Cost (€)</th><th>Analyses included</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td class="app-col"><a href="variants/short/wgs_short.html" target="_blank">Basic WGS (Short reads)</a></td>
+                    <td class="price-col price">245,56 €</td>
+                    <td class="desc-col">QC, Trimming, Alignment, Variant calling (SNP, InDels &lt;50bp), Annotation + coverage plots</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="variants/cnvs/wgs_cnvs.html" target="_blank">WGS + CNV (Short reads)</a></td>
+                    <td class="price-col price">350,80 €</td>
+                    <td class="desc-col">SNP/InDel calling + CNV detection (&gt;50bp) + coverage plots</td>
+                  </tr>
+                  <tr>
+                    <td class="app-col"><a href="variants/long/wgs_long.html" target="_blank">WGS long reads + SVs + CNVs</a></td>
+                    <td class="price-col price">456,04 €</td>
+                    <td class="desc-col">Long-read pipeline, SV detection, CNVs, annotation</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <!-- Assembly -->
+        <details class="card">
+          <summary aria-controls="panel-assembly">
+            <div class="summary-left">
+              <div class="title">Assembly applications</div>
+              <div class="subtitle">De novo assembly y evaluación</div>
+            </div>
+            <div class="summary-right">
+              <div class="chev" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="#0B3A80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div id="panel-assembly" class="panel">
+            <div class="table-wrap">
+              <table class="pricing">
+                <thead><tr><th>Application</th><th>Cost (€)</th><th>Analyses included</th></tr></thead>
+                <tbody>
+                  <tr><td class="app-col"><a href="assembly/basic/basic_assembly.html" target="_blank">Basic assembly</a></td><td class="price-col price">78,93 €</td><td class="desc-col">Automatic de novo genome assembly with specialized software</td></tr>
+                  <tr><td class="app-col"><a href="assembly/assembly/assembly.html" target="_blank">Assembly &lt; 10 kb</a></td><td class="price-col price">263,10 €</td><td class="desc-col">Validation, contig metrics, coverage, annotation, completeness evaluation</td></tr>
+                  <tr><td class="app-col"><a href="assembly/assembly/assembly.html" target="_blank">Assembly 10 kb–100 kb</a></td><td class="price-col price">280,64 €</td><td class="desc-col">Same</td></tr>
+                  <tr><td class="app-col"><a href="assembly/assembly/assembly.html" target="_blank">Assembly 100 kb–1 Mb</a></td><td class="price-col price">350,80 €</td><td class="desc-col">Same</td></tr>
+                  <tr><td class="app-col"><a href="assembly/assembly/assembly.html" target="_blank">Assembly 1–10 Mb</a></td><td class="price-col price">631,44 €</td><td class="desc-col">Same</td></tr>
+                  <tr><td class="app-col"><a href="assembly/assembly/assembly.html" target="_blank">Assembly 10–50 Mb</a></td><td class="price-col price">920,85 €</td><td class="desc-col">Same</td></tr>
+                  <tr><td class="app-col"><a href="assembly/assembly/assembly.html" target="_blank">Assembly &gt;50 Mb</a></td><td class="price-col"><em>A determinar</em></td><td class="desc-col">Same</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <!-- Data submission -->
+        <details class="card">
+          <summary aria-controls="panel-submission">
+            <div class="summary-left">
+              <div class="title">Data submission applications</div>
+              <div class="subtitle">Envío de raw y assemblies a repositorios públicos</div>
+            </div>
+            <div class="summary-right">
+              <div class="chev" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="#0B3A80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div id="panel-submission" class="panel">
+            <div class="table-wrap">
+              <table class="pricing">
+                <thead><tr><th>Application</th><th>Cost (€)</th><th>Analyses included</th></tr></thead>
+                <tbody>
+                  <tr><td class="app-col"><a href="submission/raw_data/sub_raw.html" target="_blank">Raw data submission</a></td><td class="price-col price">43,85 €</td><td class="desc-col">Creation of study report, sample registration, upload of raw reads and submission</td></tr>
+                  <tr><td class="app-col"><a href="submission/assembly/sub_assembly.html" target="_blank">Submission assembly + annotation</a></td><td class="price-col price">70,16 €</td><td class="desc-col">Create study report, standardize genome annotation file, sample registration and submission</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <!-- Metagenomics -->
+        <details class="card">
+          <summary aria-controls="panel-metagenomics">
+            <div class="summary-left">
+              <div class="title">Metagenomics applications</div>
+              <div class="subtitle">Amplicon y shotgun metagenómica</div>
+            </div>
+            <div class="summary-right">
+              <div class="chev" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="#0B3A80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div id="panel-metagenomics" class="panel">
+            <div class="table-wrap">
+              <table class="pricing">
+                <thead><tr><th>Application</th><th>Cost (€)</th><th>Analyses included</th></tr></thead>
+                <tbody>
+                  <tr><td class="app-col"><a href="metagenomics/amplicons_short/amplicons_short.html" target="_blank">Amplicons 16S/18S/ITS (Shortreads)</a></td><td class="price-col price">192,94 €</td><td class="desc-col">QC, Trimming, Qiime2: merging, denoising, clustering, taxonomic assignment, diversity & stats</td></tr>
+                  <tr><td class="app-col"><a href="metagenomics/amplicons_long/amplicons_long.html" target="_blank">Amplicons (Longreads)</a></td><td class="price-col"><em>A determinar</em></td><td class="desc-col">QC, error correction, dereplication, clustering, taxonomic assignment, diversity & stats</td></tr>
+                  <tr><td class="app-col"><a href="metagenomics/shotgun/shotgun.html" target="_blank">Shotgun metagenomics</a></td><td class="price-col"><em>A determinar</em></td><td class="desc-col">QC, trimming, host removal, assembly, taxonomic profiling, functional annotation, statistical analysis</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="left">© SABio — Biocomputational analysis · Precios a modo orientativo · Última revisión: <strong>3 Dic 2025</strong></div>
+    <div class="right">
+      <div class="muted">Contacto: <a href="mailto:info@sabio.com">info@sabio.com</a></div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Shrink header on scroll
+    (function(){
+      const header = document.getElementById('heroHeader');
+      let lastScroll = 0;
+      const shrinkAt = 60;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y > shrinkAt) header.classList.add('shrink'); else header.classList.remove('shrink');
+        lastScroll = y;
+      }, {passive:true});
+    })();
+
+    // Improve keyboard accessibility: toggle details open/close via Enter/Space
+    document.querySelectorAll('details.card summary').forEach(s => {
+      s.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const d = s.parentElement;
+          d.open = !d.open;
+        }
+      });
+    });
+
+    // Add reduced-motion respect
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.style.scrollBehavior = 'auto';
+    }
+  </script>
+</body>
+</html>
