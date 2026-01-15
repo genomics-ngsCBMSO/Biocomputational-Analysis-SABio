@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>scRNAseq Analysis - SABio v1</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-light: #1E90FF;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .buttons a {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin: 5px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .buttons a:hover {
+      background-color: #0047b3;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+      margin: 5px 0;
+    }
+
+    .substeps {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .substeps a {
+      background-color: var(--primary-light); /* color más claro para subpasos */
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-align: center;
+      display: inline-block;
+      min-width: 250px;
+      z-index: 2;
+    }
+
+    .substeps a:hover {
+      background-color: #1a75d1;
+      transform: translateY(-2px);
+    }
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .content ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    a.report-link {
+      display: inline-block;
+      text-align: center;
+      margin: 20px auto;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }    
+  </style>
+</head>
+
+<body>
+  <h1>Single Cell RNA-seq Workflow offered by SABio</h1>
+
+  <!-- Navigation -->
+  <div class="buttons">
+    <a href="#step1">Step 1: Raw Data Quality Control</a>
+    <div class="arrow">↓</div>
+    <a href="#step2">Step 2: Read Trimming & Filtering</a>
+    <div class="arrow">↓</div>
+    <a href="#step3">Step 3: Alignment & Quantification</a>
+    <div class="arrow">↓</div>
+    <a href="#step4">Step 4: Downstream Analysis</a>
+    <div class="substeps">
+      <a href="#step4_1"> 4.1. Cell QC & Filtering</a>
+      <a href="#step4_2"> 4.2. Normalization</a>
+      <a href="#step4_3"> 4.3. Dimensionality Reduction & Clustering</a>
+      <a href="#step4_4"> 4.4. Cluster's Markers</a>
+    </div>
+    <div class="arrow">↓</div>
+    <a href="#step5">Step 5: Cell Type Annotation</a>
+    <div class="arrow">↓</div>
+    <a href="#step6">Step 6: Additional Analysis</a>
+    <div class="substeps">
+      <a href="#step6_1"> Differential expression analysis </a>
+      <a href="#step6_2"> Enrichment analysis </a>
+      <a href="#step6_3"> Cell-cell communication analysis </a>
+      <a href="#step6_4"> Trajectory inference </a>
+    </div>
+  </div>
+
+  <div class="content" id="step1">
+    <h2>Step 1: Data Quality Control</h2>
+    <p>Raw sequencing data (FASTQ files) is assessed for quality using tools like FastQC and MultiQC. This step detects issues such as adapter contamination, low-quality reads, or GC bias before continuing with further analysis.</p>
+    <div class="images">
+      <img src="fastqc_mal.png" alt="Quality control" style="width: 45%;">
+      <img src="fastqc_bien.png" alt="Quality control bad" style="width: 45%;">
+    </div>
+  </div>
+
+  <div class="content" id="step2">
+    <h2>Step 2: Trimming</h2>
+    <p>Trimming removes adapter sequences and low-quality bases from reads. Tools like Trimmomatic or fastp ensure that only high-quality sequences are kept, improving mapping efficiency and accuracy.</p>
+    <div class="images">
+      <img src="table_trim.png" alt="Trimming" style="width: 55%;">
+      <img src="fastp_filtered_reads_plot.png" alt="Lecturas limpias" style="width: 55%;">
+    </div>
+  </div>
+
+  <div class="content" id="step3">
+    <h2>Step 3: Alignment & Quantification</h2>
+    <p> Reads are aligned to the reference genome using specialized software. Barcodes and UMIs are identified and deduplicated in order to quantify the gene expression as well as identify poor quality cells
+and duplicates. The results are saved in the raw counts matrix in which each column represents the transcriptomic profile of a single cell. </p>
+    <p> In most projects, this step is performed using a specialized technology-based pipeline (eg. cellRanger) or with an in-house workflow depending on the project necesities</p>
+    
+    <p>Outputs include:</p>
+    <ul>
+      <li>Filtered and raw count matrices</li>
+      <li>Barcode and UMI summaries</li>
+      <li>Alignment statistics report</li>
+    </ul>
+    <div class="images">
+      <img src="umis.png" alt="UMIS" style="width: auto; height: 500px;">
+      <img src="barcodes_plot.png" alt="barcodes_plot" style="width: auto; height: 500px;">
+   
+    </div>
+    <p style="text-align: center;">
+      <a class="report-link" href="web_summary.html" target="_blank">
+        ➤ View example of CellRanger HTML report
+      </a>
+    </p>
+  </div>
+
+
+  <!-- Step 4 -->
+  <div class="content" id="step4">
+    <h2>Step 4: Downstream Analysis</h2>
+    <p>Data is processed using <b>Seurat</b> and/or <b>Scanpy</b> pipelines for normalization, dimensionality reduction, clustering, and marker discovery.</p>
+  </div>
+
+  <div class="content" id="step4_1">
+    <h2>Step 4.1: Cell QC & Filtering</h2>
+    <p> Quality control (QC) of single cell RNA-seq data is an important step before moving on to downstream analyses and making biological conclusions. The major goals of this step includes generating metrics that help assess the sample quality as well as removing poor quality data and background noise. </p>
+    <p> Cells are filtered based on the recommended features:</p>
+    <ul>
+      <li>Total counts per cell</li>
+      <li>Number of detected genes</li>
+      <li>Percentage of mitochondrial and ribosomal RNA</li>
+      <li>Multiplets / doublets detection (Scrublet, DoubletFinder)</li>
+    </ul>
+    
+    <div class="images">
+      <img src="Scatter_percMT_BEFOREFILTER.jpeg" alt="MT filter" style="width: 500px;">
+      <img src="Doublets_scatter.jpeg" alt="Doublets" style="width: 500px;">
+    </div>
+    
+  </div>
+
+  <div class="content" id="step4_2">
+    <h2> Step 4.2: Normalization</h2>
+    <p> Normalization aims to remove technical differences so they do not interfere with comparisons of the expression profiles between cells. 
+        This ensures that any observed heterogeneity or differential expression within the cell population are driven by biology and not technical biases. </p>
+    <p> Normalization methods include a wide range of approaches such as library size normalization or normalization by deconvolution. The best method will depend on the characteristics of the project. </p> 
+  
+    <div class="images">
+      <img src="normalization.png" alt="Normalization" style="width: 500px;">
+    </div>
+
+  </div>
+
+  <div class="content" id="step4_3">
+    <h2>Step 4.3: Dimensionality Reduction</h2>
+    <p> In these type of analyses, each individual gene represents a dimension of the data. Expanding this concept, each cell's expression profile defines its location in the high-dimensional expression space. </p>
+    <p> As the name suggests, dimensionality reduction aims to reduce the number of separate dimensions in the data. This is possible because different genes are correlated if they are affected by the same biological process. 
+        Thus, we do not need to store separate information for individual genes, but can instead compress multiple features into a single dimension. This reduces computational work in downstream analyses; reduces noise and enables effective plotting of the data. </p>
+    
+    <p> Dimensionality reduction can be perform through different algorithms: </p>    
+    <ul>
+      <li>Principal Component Analysis (PCA) </li>
+      <li>Uniform manifold approximation and projection (UMAP) </li>
+      <li>t-stochastic neighbor embedding (t-SNE) </li>
+    </ul>
+    
+    <div class="images">
+      <img src="UMAP.png" alt="umap" style="width: 500px;">
+      <img src="tSNE.png" alt="tsne" style="width: 500px;">
+    </div>
+  </div>
+
+  <div class="content" id="step4_4">
+    <h2>Step 4.4: Clustering & Marker Identification</h2>
+    <p> Clustering is an unsupervised learning method that is used to define groups of cells with similar expression profiles within the scRNA-seq data.  
+        Cluster-specific marker genes are identified via differential expression using MAST, Wilcoxon or DESeq2 algorithms. 
+        These marker genes can be used for cluster annotation, in which the clusters can be treated as representations for biological concepts such as cell types.</p>
+   <p> Clustering will be done thourgh different methods based on the necesities of the project: </p>
+   <ul>
+      <li> Graph based methods (k –neighbours graph): Recommended for large datasets </li>
+      <li> Density based methods (eg. k-means): Recommended for smaller datasets </li>
+   </ul>
+
+   <div class="images">
+     <img src="" alt="clusters" style="width: 500px">
+     <img src="Markers.png" alt="markers" style="width: 500px">
+   </div>
+  
+  </div>
+
+  <div class="content" id="step5">
+    <h2>Step 5: Cell Type Annotation</h2>
+    <p> The annotation refers to the process of assigning biological identities—such as cell types, subtypes, or functional states—to individual cells or clusters of cells based on their gene expression profiles. 
+        This step is essential for interpreting scRNA-seq data and linking transcriptional heterogeneity to biological function. </p>
+    <p> Cell identities in scRNA-seq data are inferred under the assumption that: </p>
+    <ul>
+       <li>Cells with similar transcriptional profiles represent the same or closely related biological states. </li>
+       <li>Known cell types are characterized by reproducible expression of marker genes, transcriptional programs, or gene signatures. </li>
+       <li> Novel or transitional cell states may deviate from canonical marker patterns. </li>
+    </ul>
+    
+    <p> The main annotation strategy that our faciliy perform is reference-based annotation: Cell identities are assigned by comparing query cells or clusters to previously annotated reference datasets, using similarity metrics or projection methods with software as CellTypist, SingleR or Seurat. 
+      This method is fast and reproducible and also recommended for large datasets and standard tissues
+    </p>
+
+    <div class="images">
+      <img src="Annot.png" alt="annotation" style="width: 500px">
+    </div>
+
+  </div>
+
+
+<!-- Step 6 -->
+  <div class="content" id="step6">
+    <h2>Step 6: Additional analyses</h2>
+    <p></p>
+  </div>
+
+  <div class="content" id="step6_1">
+    <h2>Step 6.1: Differential Expression Analysis </h2>
+    <p> Like other techiniques like bulk RNAseq, differential expression analysis in single-cell RNA sequencing aims to identify genes whose expression levels differ systematically between biological conditions, such as cell types or clusters, experimental conditions, cellular states, etc.
+        However, compared to bulk RNA-seq, scRNA-seq presents additional complexities like zero inflation and cell-to-cell high heterogeneity. As a result, classical bulk RNA-seq DE methods are not usually suitable for this type of data. </p>
+    <p> The 2 main approaches are: </p>
+    <ul>
+      <li> Cell-level differential expression: Expression values of individual cells are compared directly between groups (e.g. cluster A vs cluster B), using statiscal analysis like Wilcoxon rank-sum test with tools such as Seurat or Scanpy.</li>
+      <li> Pseudobulk differential expression: Cells are aggregated per sample and per cell type or cluster, generating a “pseudobulk” count matrix. DE analysis is then performed using bulk RNA-seq methods such as DESeq2 or edgeR</li>
+    </ul>
+    
+    <p> For this type of analysis we will generate the same plots as we do in bulkRNAseq DE </p>
+    
+    <div class="images">
+      <img src="Heatmap_markers_DE.png" alt="HeatmapM" style="width: 500px;">
+    </div>
+    
+  </div>
+
+  <div class="content" id="step6_2">
+    <h2>Step 6.2: Enrichment Analysis </h2>
+    <p> Functional enrichment analysis is a downstream analytical step used to interpret differential expression (DE) results by identifying biological functions, pathways, or regulatory programs that are overrepresented in a given gene set. </p>
+    This way we can give a biological context to those differentially expressed genes (DEGs, pvalue adjusted < 0.05)) obtained through a differential expression analysis. 
+    <p> </p>
+    <ul> 
+      <li> Over-Representation Analysis (ORA): tests whether genes from a DE list occur more frequently than expected by chance in predefined functional categories such as GO terms or pathways databases. </li>
+      <li> Gene Set Enrichment Analysis (GSEA): evaluates whether genes from a functional category are enriched at the top or bottom of a ranked gene list.</li>
+
+
+    </ul>
+   
+    <div class="images">
+      <img src="Barplot.jpeg" alt="Barplot GO" style="width: 500px;">
+      <img src="Dotplot.jpeg" alt="Dotplot GO" style="width: 500px;">
+    </div>
+    
+  </div>
+
+
+  <div class="content" id="step6_3">
+    <h2>Step 6.3: Cell-cell Communication Analysis </h2>
+    <p> Cell–cell communication analysis aims to infer intercellular signaling interactions by identifying expression of ligand–receptor pairs across distinct cell populations. The primary goal is to understand how different cell types communicate and influence each other. </p>
+    <p> Importantly, this analysys infers putative signaling interactions, not direct biochemical evidence. Robust interpretation requires careful cell annotation, integration with complementary analyses, and awareness of methodological limitations.</p>
+    <p> Once we the cells annotated with the correspondant cell type, the typical workflow for cell-to-cell communication analysis includes: </p>
+    <p></p>
+    <ul> 
+      <li> Definition of sender ((ligand-expressing) and receiver (receptor-expressing) populations. </li>
+      <li> Selection of ligand–receptor interaction database. The most commonly used are CellPhoneDB and CellChat.</li>
+      <li> Statistical inference of interactions: Assess whether observed ligand–receptor co-expression between two populations is greater than expected by chance. </li>
+      <li> Build cell–cell communication networks </li>
+    </ul>
+    <div class="images">
+      <img src="C2C.png" alt="MT filter" style="width: 800px;">
+    </div>
+    
+  </div>
+
+  <div class="content" id="step6_4">
+    <h2>Step 6.4: Trajectory Analysis </h2>
+    <p> Trajectory analysis (also referred to as pseudotime analysis) in single-cell RNA sequencing aims to reconstruct dynamic biological processes from static transcriptomic snapshots by ordering cells along a continuous axis that represents progression through a biological process.
+        Typical applications include cell differentiation, developmental processes and state transitions in disease contexts. </p>
+    <p> Trajectory analysis is based on the assumption that cells sampled at a single time point represent different stages of an underlying dynamic process and that transcriptional similarity reflects proximity along that process
+        The process can often be represented as a linear trajectory, a branching structure or a complex graph of cell states. The inferred ordering of cells is referred to as pseudotime, which reflects relative progression, not actual chronological time.</p>
+
+    <ul>
+      <li> 1. Dimensionality reduction: Trajectory methods operate in a low-dimensional representation of the data like PCA or UMAP.</li>
+      <li> 2. Stablishing root cell: Most methods require specification of a starting point, such as a progenitor cell population or a biologically defined early cluster. The root defines the direction of pseudotime.</li>
+      <li> 3. Graph construction and trajectory inference. Cells are connected based on transcriptional similarity to form a graph or manifold, from which trajectories are inferred. </li>
+    </ul>
+    Although there are many possible approaches we usually performs this analysis with the software Monocle3 which is widely used and recommended.
+
+    <div class="images">
+      <img src="trajectory_plot.png" alt="MT filter" style="width: 800px;">
+    </div>
+    
+  </div>
+
+
+  <footer>
+    SABio Bioinformatics Service — Single Cell Analysis Platform
+  </footer>
+
+</body>
+</html>
