@@ -106,7 +106,7 @@
   <summary>Assembly applications</summary>
   <table>
     <tr><th>Application</th><th class="price-col">Prize</th><th class="desc-col">Analyses included</th></tr>
-    <tr><td class="app-name"><a href="assembly/basic/basic_assembly.html" target="_blank" >Basic assembly</a></td><td>78,93</td><td>Automatic de novo genome assembly with specialized software</td></tr>
+    <tr><td class="app-name"><a href="assembly/assembly/assembly.html" target="_blank" >Basic assembly</a></td><td>78,93</td><td>Automatic de novo genome assembly with specialized software</td></tr>
     <tr><td class="app-name"><a href="assembly/assembly/assembly.html" target="_blank" >Assembly < 10 kb</a></td><td>263,1</td><td>Validation of automatic genome assembly, including contig length assessment, coverage visualization, genome annotation, and evaluation of assembly and annotation completeness</td></tr>
     <tr><td class="app-name"><a href="assembly/assembly/assembly.html" target="_blank" >Assembly 10 kb-100 kb</a></td><td>280,64</td><td>“Same”</td></tr>
     <tr><td class="app-name"><a href="assembly/assembly/assembly.html" target="_blank" >Assembly 100 kb-1 Mb</a></td><td>350,8</td><td>“Same”</td></tr>
