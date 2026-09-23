@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shotgun metagenomics analysis - SABio v1</title>
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-light: #617dff;
+      --accent: #00d1b2;
+      --background: #f4f6f9;
+      --card-bg: #ffffffee;
+      --text-color: #1e1e2f;
+      --shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      margin: 0;
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .buttons a {
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      margin: 5px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .buttons a:hover {
+      background-color: #0047b3;
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+      margin: 5px 0;
+    }
+
+    .substeps {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .substeps a {
+      background-color: var(--primary-light); /* color más claro para subpasos */
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-align: center;
+      display: inline-block;
+      min-width: 250px;
+      z-index: 2;
+    }
+
+    .substeps a:hover {
+      background-color: #1a75d1;
+      transform: translateY(-2px);
+    }
+    .arrow {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .content {
+      background: var(--card-bg);
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 1000px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+
+    .content p {
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .content ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .images img {
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      height: auto;
+    }
+
+    a.report-link {
+      display: inline-block;
+      text-align: center;
+      margin: 20px auto;
+      font-weight: bold;
+      color: var(--primary);
+      text-decoration: underline;
+    }
+    
+    .images-with-arrow {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 10px; /* Espacio entre imágenes y flecha */
+   }
+
+   .images-with-arrow .image {
+    width: 45%;
+    max-width: 400px;
+   }
+
+   .arrow {
+    font-size: 2rem; /* Tamaño de la flecha */
+    margin: 0 10px;
+   }    
+  </style>
+</head>
+<body>
+
+  <h1>Shotgun metagenomics analysis offered by SABio</h1>
+  <div class="buttons">
+    <a href="#fase1">Step 1: Data quality control</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase2">Step 2: Trimming</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase3">Step 3: Host removal (if needed)</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase4">Step 4: Metagenomics analysis with SqueezeMeta</a>
+    <div class="arrow">↓</div>
+
+    <a href="#fase5">Step 5: Visualization of results with SQMtools</a>
+  </div>
+
+  <div class="content" id="fase1">
+    <h2>Step 1: Data Quality Control</h2>
+    <p>Raw sequencing data (FASTQ files) is assessed for quality using tools like FastQC and MultiQC. This step detects issues such as adapter contamination, low-quality reads, or GC bias before continuing with further analysis.</p>
+    <div class="images">
+      <img src="1-fastqc_per_sequence_quality_scores_plot.png" alt="QC" style="width: 90%;">
+      <img src="1-fastqc_adapter_content_plot.png" alt="QC" style="width: 90%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase2">
+    <h2>Step 2: Trimming</h2>
+    <p>Trimming removes adapter sequences and low-quality bases from reads. Tools like Trimmomatic or fastp ensure that only high-quality sequences are kept, improving mapping efficiency and accuracy.</p>
+    <div class="images">
+      <img src="2-fastqc_per_sequence_quality_scores_plot.png" alt="Trimming" style="width: 80%;">
+      <img src="2-fastp_filtered_reads_plot.png" alt="Trimming" style="width: 80%;">
+      <img src="2-general_stats_table.png" alt="Trimming" style="width: 80%;">
+    </div>
+  </div>
+    
+  <div class="content" id="fase3">
+    <h2>Step 3: Host removal</h2>
+    <p>Host presence can be detected with software like fastq-screen. Clean trimmed reads are mapped against the host reference genome and only unmapped reads are retained for next steps. </p>
+  </div>
+
+  <div class="content" id="fase4">
+    <h2>Step 4: Metagenomics analysis with SqueezeMeta </h2>
+    <p>SqueezeMeta is a CSIC-developed sofware which performs a whole metegenomics analysis with a single command. It includes assembly, ORF detection, taxonomic assignment, function detection and Bin (MAG) search. It outputs tables and text files which can be easily visualized with SQMtools or used for personalized/custom post-analyses. Here we show some examples of the generated tables.</p>
+    </p>    ➤ Taxonomic assignment and abundance</p>
+    <div class="images">
+      <img src="4-taxa.png" alt="SqM" style="width: 95%;">
+      <img src="4-abund.png" alt="SqM" style="width: 85%;">
+    </div>
+    </p>    ➤ Contig sequence</p>
+    <div class="images">
+      <img src="4-seq.png" alt="SqM" style="width: 85%;">
+    </div>
+    </p>    ➤ PFAM functions abundance</p>
+    <div class="images">
+      <img src="4-pfam.png" alt="SqM" style="width: 85%;">
+    </div>
+  </div>
+
+  <div class="content" id="fase5">
+    <h2>Step 5: Visualization of results with SQMtools</h2>
+    <p>SqueezeMeta developers also provide an R package, SQMtools, which offers functions to visualize data.</p>
+    <div class="images">
+      <img src="5-SQMtools.png" alt="SQMtools" style="width: 50%;">          
+    </div>
+    <p>Among all functionalities, we can:</p>
+    </p> ➤ Generate plots depicting taxonomy or functions.</p>
+    <div class="images">
+      <img src="5-taxa_plot.png" alt="abundance" style="width: 40%;">
+      <img src="5-function_plot.png" alt="abundance" style="width: 40%;">            
+    </div>
+    <p> ➤ Export pathways.</p>
+    <div class="images">
+      <img src="5-pathways.png" alt="abundance" style="width: 75%;">         
+    </div>      
+    <p> ➤ Export taxonomy to Krona, obtaining a multilayer interactive piechart with a hierarchical representation of taxa.</p>    
+    <div class="images">
+      <img src="5-krona_static.png" alt="krona_static" style="width: 90%;">
+    </div>
+    <p style="text-align: center;">
+      <a class="report-link" href="5-SqM.krona.html" target="_blank">
+        ➤ View interactive Krona chart
+      </a>
+    </p>    
+  </div>
+</body>
+</html>
